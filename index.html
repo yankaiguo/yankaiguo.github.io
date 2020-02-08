@@ -91,17 +91,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="什么是平均负载？"><a href="#什么是平均负载？" class="headerlink" title="什么是平均负载？"></a>什么是平均负载？</h1><p>正确定义：</p>
-<blockquote>
-<p>平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和CPU使用率并没有直接关系。</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和CPU使用率并没有直接关系。</span><br></pre></td></tr></table></figure>
+
 <p>错误定义：</p>
-<blockquote>
-<p>单位时间内的CPU使用率</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">单位时间内的CPU使用率</span><br></pre></td></tr></table></figure>
 <p>下面先介绍一下可运行状态进程和不可中断状态进程：<br>1. 可运行状态进程</p>
-<blockquote>
-<p>可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。</p>
-</blockquote>
+<p><code>可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。</code></p>
 <p>比如使用ps命令看到的，处于R状态（Running 或 Runnable）的进程。</p>
 <p>2.  不可中断状态进程</p>
 <pre><code>不可中断状态的进程是正处于内核态关键流程中的进程，并且这些流程是不可打断的。不可中断状态实际上是系统对进程和硬件设备的一种保护机制。</code></pre><p>比如最常见的是等待硬件设备的I/O响应，也就是我们在ps命令中看到的D状态（Uninterruptible Sleep，也称为Disk Sleep）的进程。</p>
