@@ -15,7 +15,7 @@
 <meta property="og:description" content="什么是平均负载？正确定义：  平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和CPU使用率并没有直接关系。  错误定义：  单位时间内的CPU使用率  下面先介绍一下可运行状态进程和不可中断状态进程：1. 可运行状态进程  可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。  比如使用ps命令看到的，处于R状态（Running 或 R">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-08T00:39:00.000Z">
-<meta property="article:modified_time" content="2020-02-08T07:19:58.085Z">
+<meta property="article:modified_time" content="2020-02-08T07:24:40.982Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -111,31 +111,40 @@
 <blockquote>
 <p>平均负载高于CPU核数70%的时候</p>
 </blockquote>
-<p>#相关指令<br>##CPU核数<br>1.  <strong>lscpu</strong></p>
+<h1 id="相关指令"><a href="#相关指令" class="headerlink" title="相关指令"></a>相关指令</h1><h2 id="CPU核数"><a href="#CPU核数" class="headerlink" title="CPU核数"></a>CPU核数</h2><p>1.  <strong>lscpu</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ lscpu</span><br><span class="line">Architecture:        x86_64</span><br><span class="line">CPU op-mode(s):      32-bit, 64-bit</span><br><span class="line">Byte Order:          Little Endian</span><br><span class="line">CPU(s):              8</span><br><span class="line">On-line CPU(s) list: 0-7</span><br><span class="line">Thread(s) per core:  1</span><br><span class="line">Core(s) per socket:  8</span><br><span class="line">Socket(s):           1</span><br><span class="line">NUMA node(s):        1</span><br><span class="line">Vendor ID:           GenuineIntel</span><br><span class="line">CPU family:          6</span><br><span class="line">Model:               142</span><br><span class="line">Model name:          Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz</span><br><span class="line">Stepping:            12</span><br><span class="line">CPU MHz:             1991.999</span><br><span class="line">BogoMIPS:            3983.99</span><br><span class="line">Virtualization:      VT-x</span><br><span class="line">Hypervisor vendor:   VMware</span><br><span class="line">Virtualization type: full</span><br><span class="line">L1d cache:           32K</span><br><span class="line">L1i cache:           32K</span><br><span class="line">L2 cache:            256K</span><br><span class="line">L3 cache:            8192K</span><br><span class="line">NUMA node0 CPU(s):   0-7</span><br></pre></td></tr></table></figure>
 <p>2. <strong>grep ‘model name’ /proc/cpuinfo | wc -l</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ grep &#39;model name&#39; &#x2F;proc&#x2F;cpuinfo | wc -l</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
-<p>##显示负载<br>1.  <strong>uptime</strong></p>
+<h2 id="显示负载"><a href="#显示负载" class="headerlink" title="显示负载"></a>显示负载</h2><p>1.  <strong>uptime</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ uptime</span><br><span class="line"> 08:45:52 up 1 day, 10:29,  2 users,  load average: 0.44, 0.10, 0.03</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>load average：显示的顺序是最近1分钟，5分钟，15分钟的平均负载情况。通过观察趋势，判定平均负载是否异常。</p>
 </blockquote>
 <p>1.  <strong>top</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br><span class="line">top - 08:46:50 up 1 day, 10:30,  2 users,  load average: 0.21, 0.09, 0.03</span><br><span class="line">Tasks: 396 total,   2 running, 298 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  0.9 us,  0.4 sy,  0.0 ni, 98.6 id,  0.0 wa,  0.0 hi,  0.1 si,  0.0 st</span><br><span class="line">KiB Mem :  2006004 total,   149252 free,  1172820 used,   683932 buff&#x2F;cache</span><br><span class="line">KiB Swap:  1942896 total,  1430896 free,   512000 used.   637672 avail Mem</span><br></pre></td></tr></table></figure>
-<p>3.      <strong>watch -d uptime</strong><br>    &gt;-d 会高亮显示变化的区域</p>
-<p>4.     <strong>stress 压测命令</strong><br>    &gt;  –cpu n  cpu压测选项<br>    &gt; –i  n     io压力测试选项，<br>    &gt; -c  n  进程数压测选项<br>    &gt; -timeout  执行时间</p>
-<p>5.   <strong>mpstat</strong><br>    &gt; 多核CPU 性能分析工具 ，mpstat  -P ALL :监视所有CPU</p>
-<p>6.  <strong>pidstat</strong></p>
+<p>3. <strong>watch -d uptime</strong></p>
+<blockquote>
+<p>-d 会高亮显示变化的区域</p>
+</blockquote>
+<p>4. <strong>stress 压测命令</strong></p>
+<blockquote>
+<p>–cpu n  cpu压测选项<br>–i  n     io压力测试选项，<br>-c  n  进程数压测选项<br>-timeout  执行时间</p>
+</blockquote>
+<p>5. <strong>mpstat</strong></p>
+<blockquote>
+<p>多核CPU 性能分析工具 ，mpstat  -P ALL :监视所有CPU</p>
+</blockquote>
+<p>6. <strong>pidstat</strong></p>
 <blockquote>
 <p>进程性能分析工具， -u 显示cpu利用率</p>
 </blockquote>
-<p>#平均负载和cpu使用的区别<br><strong>CPU使用率</strong></p>
+<h1 id="平均负载和cpu使用的区别"><a href="#平均负载和cpu使用的区别" class="headerlink" title="平均负载和cpu使用的区别"></a>平均负载和cpu使用的区别</h1><p><strong>CPU使用率</strong></p>
 <blockquote>
-<p> CPU使用率是指cpu繁忙情况的统计</p>
+<p>CPU使用率是指cpu繁忙情况的统计</p>
 </blockquote>
 <p>情况1：</p>
 <blockquote>
-<p>CPU密集型进程， CPU使用率和平均负载基本一致</p>
+<p>CPU密集型进程， CPU使用率和平均负载基本一致 </p>
 </blockquote>
 <p>情况2：</p>
 <blockquote>
@@ -145,8 +154,9 @@
 <blockquote>
 <p>大量等待CPU的进程调度，平均负载升高，CPU使用率也升高</p>
 </blockquote>
-<p>#平均负载升高时，如何调优<br>##CPU密集型进程case<br>    mpstat -p ALL 5: -P ALL 表示监控所有CPU， 5表示每5秒刷新一次数据，观察是否有某个CPU很高， 但iowait很低。<br>    pidstat -u 5 1: 每5秒输出一组数据，观察哪个进程%cpu很高，但是%wait很低， 极有可能就是这个进程导致cpu飙升。<br>##IO密集型进程case<br>    mpstat -P ALL 5 : 观察是否某个cpu的%iowait很高，同时%usr也较高<br>    pidstat -u 5 1  : 观察哪个进程%wait较高，同时%cpu也较高<br>##大量进程case<br>    pidstat -u 5 1  : 观察那些%wait 较高的进程是否有很多。</p>
-
+<h1 id="平均负载升高时，如何调优"><a href="#平均负载升高时，如何调优" class="headerlink" title="平均负载升高时，如何调优"></a>平均负载升高时，如何调优</h1><h2 id="CPU密集型进程case"><a href="#CPU密集型进程case" class="headerlink" title="CPU密集型进程case"></a>CPU密集型进程case</h2><pre><code>mpstat -p ALL 5: -P ALL 表示监控所有CPU， 5表示每5秒刷新一次数据，观察是否有某个CPU很高， 但iowait很低。
+pidstat -u 5 1: 每5秒输出一组数据，观察哪个进程%cpu很高，但是%wait很低， 极有可能就是这个进程导致cpu飙升。</code></pre><h2 id="IO密集型进程case"><a href="#IO密集型进程case" class="headerlink" title="IO密集型进程case"></a>IO密集型进程case</h2><pre><code>mpstat -P ALL 5 : 观察是否某个cpu的%iowait很高，同时%usr也较高
+pidstat -u 5 1  : 观察哪个进程%wait较高，同时%cpu也较高</code></pre><h2 id="大量进程case"><a href="#大量进程case" class="headerlink" title="大量进程case"></a>大量进程case</h2><pre><code>pidstat -u 5 1  : 观察那些%wait 较高的进程是否有很多。</code></pre>
       
     </div>
     <footer class="article-footer">
