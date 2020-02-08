@@ -90,7 +90,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#什么是平均负载？<br>正确定义：</p>
+        <p>#什么是平均负载？</p>
+<p>正确定义：</p>
 <blockquote>
 <p>平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和CPU使用率并没有直接关系。</p>
 </blockquote>
@@ -99,15 +100,9 @@
 <p> 单位时间内的CPU使用率</p>
 </blockquote>
 <p>下面先介绍一下可运行状态进程和不可中断状态进程：<br>1.  可运行状态进程</p>
-<blockquote>
-<p>可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。</p>
-</blockquote>
-<p>比如使用ps命令看到的，处于R状态（Running 或 Runnable）的进程。</p>
+<pre><code>可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。</code></pre><p>比如使用ps命令看到的，处于R状态（Running 或 Runnable）的进程。</p>
 <p>2.  不可中断状态进程</p>
-<blockquote>
-<p>不可中断状态的进程是正处于内核态关键流程中的进程，并且这些流程是不可打断的。不可中断状态实际上是系统对进程和硬件设备的一种保护机制。</p>
-</blockquote>
-<p>比如最常见的是等待硬件设备的I/O响应，也就是我们在ps命令中看到的D状态（Uninterruptible Sleep，也称为Disk Sleep）的进程。</p>
+<pre><code>不可中断状态的进程是正处于内核态关键流程中的进程，并且这些流程是不可打断的。不可中断状态实际上是系统对进程和硬件设备的一种保护机制。</code></pre><p>比如最常见的是等待硬件设备的I/O响应，也就是我们在ps命令中看到的D状态（Uninterruptible Sleep，也称为Disk Sleep）的进程。</p>
 <p>3.过载经验值</p>
 <blockquote>
 <p>平均负载高于CPU核数70%的时候</p>
@@ -151,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gykai.gitee.io/vblog/2020/02/08/%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%EF%BC%9F/" data-id="ck6d8vr8j0000gwv514h4ey9g" class="article-share-link">Share</a>
+      <a data-url="http://gykai.gitee.io/vblog/2020/02/08/%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%EF%BC%9F/" data-id="ck6d94piq0000zwv551zqeipp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -200,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://gykai.gitee.io/vblog/2020/02/05/hello-world/" data-id="ck6d8vr980003gwv5eqmndfn1" class="article-share-link">Share</a>
+      <a data-url="http://gykai.gitee.io/vblog/2020/02/05/hello-world/" data-id="ck6d94piz0001zwv5geue2q7z" class="article-share-link">Share</a>
       
       
     </footer>
