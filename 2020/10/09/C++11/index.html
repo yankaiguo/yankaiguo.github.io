@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yankaiguo.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="C++11是什么，C++11标准的由来C++11 auto类型推导功能说明C++11 使用auto来做自动类型推导，使用了auto关键字之后，编译器会在编译期间自动推导出变量的类型。 语法说明1auto name &#x3D; value   auto 仅仅是个占位符，在编译器期间它会被真正的类型所替代。  auto的高级用法 auto除了可以独立使用，还可以和某些具体类型混合使用，这样auto表示的就是”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++11">
+<meta property="og:url" content="https://yankaiguo.github.io/2020/10/09/C++11/index.html">
+<meta property="og:site_name" content="gykai的博客">
+<meta property="og:description" content="C++11是什么，C++11标准的由来C++11 auto类型推导功能说明C++11 使用auto来做自动类型推导，使用了auto关键字之后，编译器会在编译期间自动推导出变量的类型。 语法说明1auto name &#x3D; value   auto 仅仅是个占位符，在编译器期间它会被真正的类型所替代。  auto的高级用法 auto除了可以独立使用，还可以和某些具体类型混合使用，这样auto表示的就是”">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-09T13:14:44.296Z">
+<meta property="article:modified_time" content="2020-10-09T14:13:09.912Z">
+<meta property="article:author" content="Yankai Guo">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://yankaiguo.github.io/2020/10/09/C++11/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>C++11 | gykai的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">gykai的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://yankaiguo.github.io/2020/10/09/C++11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yankai Guo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="gykai的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++11
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-09 21:14:44 / Modified: 22:13:09" itemprop="dateCreated datePublished" datetime="2020-10-09T21:14:44+08:00">2020-10-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="C-11是什么，C-11标准的由来"><a href="#C-11是什么，C-11标准的由来" class="headerlink" title="C++11是什么，C++11标准的由来"></a>C++11是什么，C++11标准的由来</h1><h1 id="C-11-auto类型推导"><a href="#C-11-auto类型推导" class="headerlink" title="C++11 auto类型推导"></a>C++11 auto类型推导</h1><h2 id="功能说明"><a href="#功能说明" class="headerlink" title="功能说明"></a>功能说明</h2><p>C++11 使用auto来做自动类型推导，使用了auto关键字之后，编译器会在编译期间自动推导出变量的类型。</p>
+<h2 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> name = value</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>auto 仅仅是个占位符，在编译器期间它会被真正的类型所替代。</li>
+</ul>
+<h2 id="auto的高级用法"><a href="#auto的高级用法" class="headerlink" title="auto的高级用法"></a>auto的高级用法</h2><ul>
+<li><p>auto除了可以独立使用，还可以和某些具体类型混合使用，这样auto表示的就是”半个”类型，而不是完整的类型。例如</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> *p1 = &amp;x;   <span class="comment">//p1为int * , auto 推导为int</span></span><br><span class="line"><span class="keyword">auto</span> p2 = &amp;x; 	<span class="comment">//p2为int* ，auto推导为int*</span></span><br><span class="line"><span class="keyword">auto</span> &amp;r1 = x; 	<span class="comment">//r1为int&amp; , auto 推导为int</span></span><br><span class="line"><span class="keyword">auto</span> r2 = r1;	<span class="comment">//r1 为int， auto推导为int</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>auto与const的结合</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> n = x; 		<span class="comment">//n为const int， auto被推导为int</span></span><br><span class="line"><span class="keyword">auto</span> f = n;  			<span class="comment">//f为const int， auto 被推导为int (const 属性为抛弃)</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">auto</span> &amp;r1 = x; 	<span class="comment">//r1为const int&amp; 类型，auto被推导为int</span></span><br><span class="line"><span class="keyword">auto</span> &amp;r2 = r1; 			<span class="comment">//r1 时const int&amp; 类型，auto被推导为const int类型。</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>当类型不为引用时，auto的推导结果将不保留表达式的const属性</li>
+<li>当类型为引用时，auto的推导结果将保留表达式的const属性。</li>
+</ul>
+<h2 id="auto的限制"><a href="#auto的限制" class="headerlink" title="auto的限制"></a>auto的限制</h2><ol>
+<li><p>auto不能再函数的参数中使用。</p>
+</li>
+<li><p>auto关键字不能作用于类的非静态成员变量(也就是没有static关键字修饰的成员变量)中。</p>
+</li>
+<li><p>auto关键字不能定义数组，例如</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> url[] = <span class="string">"http://c.biancheng.net/"</span>;</span><br><span class="line"><span class="keyword">auto</span> str[] = url;	<span class="comment">//url为数组，所以不能使用auto</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>auto不能作用于模板参数</p>
+</li>
+</ol>
+<h2 id="auto的应用"><a href="#auto的应用" class="headerlink" title="auto的应用"></a>auto的应用</h2><ul>
+<li>auto定义stl的迭代器</li>
+<li>auto用于泛型编程</li>
+</ul>
+<h1 id="C-11-decltype类型推导"><a href="#C-11-decltype类型推导" class="headerlink" title="C++11 decltype类型推导"></a>C++11 decltype类型推导</h1><h2 id="功能说明-1"><a href="#功能说明-1" class="headerlink" title="功能说明"></a>功能说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decltype是C++11新增的一个关键字，它和auto的功能一样，都用来在编译时进行自动类型推导。</span><br></pre></td></tr></table></figure>
+
+<h2 id="语法说明-1"><a href="#语法说明-1" class="headerlink" title="语法说明"></a>语法说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auto varname &#x3D; value;</span><br><span class="line">decltype(exp) varname &#x3D; value; &#x2F;&#x2F;varname表示变量名，value表示赋给变量的值，exp表示一个表达式。</span><br><span class="line">decltype根据exp表达式推导出变量的类型，跟&quot;&#x3D;&quot;右边的value没有关系。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>auto 要求变量必须初始化，而decltype不要求。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int a &#x3D; 0;</span><br><span class="line">decltype(a) b &#x3D; 1; 	&#x2F;&#x2F;b 被推导成了int</span><br><span class="line">decltype(10.8) x &#x3D; 5.5;	&#x2F;&#x2F;x 被推到成了double</span><br><span class="line">decltype(x + 10) y ; 	&#x2F;&#x2F;y 被推导成了double</span><br></pre></td></tr></table></figure>
+
+<h2 id="decltype推导规则"><a href="#decltype推导规则" class="headerlink" title="decltype推导规则"></a>decltype推导规则</h2><ul>
+<li>如果exp是一个不被括号<code>()</code>包围的表达式，或者是一个类成员访问表达式，或者是一个单独的表达式，或者是一个单独的变量，那么decltype(exp)的类型就和exp一致。</li>
+<li>如果exp是函数调用，那么decltype(exp) 的类型就和函数返回值的类型一致。</li>
+<li>如果exp是一个左值，或者被括号<code>()</code>包围，那么decltype(exp)的类型就是exp的引用；假设exp的类型为T,那么decltype(exp)的类型就是T&amp;.</li>
+</ul>
+<h3 id="实例1"><a href="#实例1" class="headerlink" title="实例1"></a>实例1</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> total;</span><br><span class="line">	<span class="built_in">string</span> name;</span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">float</span> scores;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> Student::total = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> &amp;r = n;</span><br><span class="line">	Student stu;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">decltype</span>(n) a = n;		<span class="comment">//n 为int类型，a被推导为int类型</span></span><br><span class="line">	<span class="keyword">decltype</span>(r) b = n;		<span class="comment">//r为const int&amp; 类型，b被推导为const int&amp; 类型</span></span><br><span class="line">	<span class="keyword">decltype</span>(Student::total) c= <span class="number">0</span>; 	<span class="comment">//total 为类Student的一个int类型的成员变量，c被推导为int类型</span></span><br><span class="line">	<span class="keyword">decltype</span>(stu.name) url = <span class="string">"http://c.biancheng.net/cplus/"</span>; <span class="comment">//name为类Student的一个string类型变量，url被推导为string类型</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实例2：-exp为函数调用"><a href="#实例2：-exp为函数调用" class="headerlink" title="实例2： exp为函数调用"></a>实例2： exp为函数调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;函数声明</span><br><span class="line">int&amp; func_int_r(int, char); &#x2F;&#x2F;返回类型为int &amp;</span><br><span class="line">int&amp;&amp; func_int_rr(void);	&#x2F;&#x2F;返回类型为int &amp;&amp;</span><br><span class="line">int func_int(double);		&#x2F;&#x2F;返回类型为int</span><br><span class="line"></span><br><span class="line">const int&amp; fun_cint_r(int,int,int);	&#x2F;&#x2F;返回值为const int&amp;</span><br><span class="line">const int&amp;&amp; fun_cint_rr(void);		&#x2F;&#x2F;返回类型为const int&amp;&amp;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;decltype 类型推导</span><br><span class="line">int n &#x3D; 100;</span><br><span class="line">decltype(func_int_r(100,A)) a &#x3D; n;	&#x2F;&#x2F;a 的类型为 int&amp;</span><br><span class="line">decltype(func_int_rr()) b &#x3D; 0;		&#x2F;&#x2F;b的类型为 int&amp;&amp;</span><br><span class="line">decltype(func_int(10.5)) c &#x3D; 0;		&#x2F;&#x2F;c的类型为 int</span><br><span class="line"></span><br><span class="line">decltype(fun_cint_r(1,2,3)) x &#x3D; n; 	&#x2F;&#x2F;x的类型为 const int&amp;</span><br><span class="line">decltype(fun_cint_rr()) y &#x3D; 0; 		&#x2F;&#x2F;y的类型为 const int&amp;&amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实例3-：exp是左值，或者被-包围"><a href="#实例3-：exp是左值，或者被-包围" class="headerlink" title="实例3 ：exp是左值，或者被()包围"></a>实例3 ：exp是左值，或者被<code>()</code>包围</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Base&#123;</span><br><span class="line">public:</span><br><span class="line">	int x;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">	const Base obj;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;带有括号的表达式</span><br><span class="line">	decltype(obj.x) a &#x3D; 0; 	&#x2F;&#x2F;obj.x为类的成员访问表达式，符合推导规则1，a的类型为int</span><br><span class="line">	decltype((obj.x)) b &#x3D; a; 	&#x2F;&#x2F;obj.x 带有括号，符合推导规则三，b的类型类型为 int&amp;</span><br><span class="line">	</span><br><span class="line">	&#x2F;&#x2F;加法表达式</span><br><span class="line">	int n&#x3D;0, m &#x3D; 0;</span><br><span class="line">	decltype(m+n) c &#x3D; 0; 	&#x2F;&#x2F;m+n得到一个右值，符合推到规则一，所以推导结果为int</span><br><span class="line">	decltype(n&#x3D;n+m) d &#x3D; c;	&#x2F;&#x2F;n&#x3D;n+m得到一个左值，符号推导规则三，所以推导结果为int&amp;</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="decltype-的实际应用"><a href="#decltype-的实际应用" class="headerlink" title="decltype 的实际应用"></a>decltype 的实际应用</h2><ul>
+<li>推导非静态成员的类型</li>
+</ul>
+<h1 id="C-11-auto和decltype的区别"><a href="#C-11-auto和decltype的区别" class="headerlink" title="C++11 auto和decltype的区别"></a>C++11 auto和decltype的区别</h1><h2 id="语法格式的区别"><a href="#语法格式的区别" class="headerlink" title="语法格式的区别"></a>语法格式的区别</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auto varname &#x3D; value;			&#x2F;&#x2F;auto的语法格式</span><br><span class="line">decltype(exp) varname[&#x3D;value];	&#x2F;&#x2F;decltype的语法格式</span><br></pre></td></tr></table></figure>
+
+<h2 id="对cv限定符的处理"><a href="#对cv限定符的处理" class="headerlink" title="对cv限定符的处理"></a>对cv限定符的处理</h2><ul>
+<li><p>[cv限定符]是const 和volatile关键字的统称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const 关键字用来表示数据是只读的，页就是不能被修改</span><br><span class="line">voltile 和const 是相反的，它用来表示数据是可变的，易变的，目的是不让CPU将数据缓存到寄存器，而是从原始的内存中读取。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>decltype会保留cv限定符，而auto有可能会去掉cv限定符。（当推导类型不是指针或引用时，会去掉cv限定符）</p>
+</li>
+</ul>
+<h2 id="对引用的处理"><a href="#对引用的处理" class="headerlink" title="对引用的处理"></a>对引用的处理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当表达式的类型为引用时，auto和decltype的推导规则页不一样，decltype会保留引用类型，而auto会抛弃引用类型，直接推导出它的原始类型。</span><br></pre></td></tr></table></figure>
+
+<h1 id="C-11-返回值类型后置"><a href="#C-11-返回值类型后置" class="headerlink" title="C++11 返回值类型后置"></a>C++11 返回值类型后置</h1><h2 id="功能说明-2"><a href="#功能说明-2" class="headerlink" title="功能说明"></a>功能说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在泛型编程中，可能需要通过参数的运算来得到返回值的类型。</span><br><span class="line">在C++中增加了返回类型后置(trailing-return-type,又称跟踪返回类型)语法，将decltype和auto结合起来完成返回值类型的推导。</span><br></pre></td></tr></table></figure>
+
+<h3 id="例子一"><a href="#例子一" class="headerlink" title="例子一"></a>例子一</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T, Typename U&gt;</span><br><span class="line">auto add(T t, U u) -&gt; decltype(t+u)</span><br><span class="line">&#123;</span><br><span class="line">	return t+u;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="例子二"><a href="#例子二" class="headerlink" title="例子二"></a>例子二</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int&amp; foo(int &amp;i);</span><br><span class="line">float foo(float &amp;f)</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">auto func(T&amp; var) -&gt; decltype(foo(var))</span><br><span class="line">&#123;</span><br><span class="line">	return foo(var);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">返回值类型后置语法，是为了解决返回返回值类型依赖于参数而导致难以确定返回值类型的问题，有了这种语法以后，对返回值类型的推导就可以用清晰的方式(直接通过参数做运算)描述出来，而不需要像C++98&#x2F;03那样使用晦涩难懂的写法。</span><br></pre></td></tr></table></figure>
+
+<h1 id="C-11-对模板实例化中连续右尖括号-gt-gt-的改进"><a href="#C-11-对模板实例化中连续右尖括号-gt-gt-的改进" class="headerlink" title="C++11 对模板实例化中连续右尖括号&gt;&gt;的改进"></a>C++11 对模板实例化中连续右尖括号&gt;&gt;的改进</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在C++98&#x2F;03的泛型编程中，模板实例化有一个很繁琐的地方，那就是连续两个右尖括号(&gt;&gt;)会被编译器解释成右移操作符，而不是模板参数表的结束。</span><br></pre></td></tr></table></figure>
+
+<h1 id="C-11-使用using定义别名-替代typedef"><a href="#C-11-使用using定义别名-替代typedef" class="headerlink" title="C++11 使用using定义别名(替代typedef)"></a>C++11 使用using定义别名(替代typedef)</h1><ul>
+<li><p>typedef 的用法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">typedef unsigned int uint_t</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>typedef的限制</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">无法重定义一个模板</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>C++11中出现了可以重定义一个模板的语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename Val&gt;</span><br><span class="line">using str_map_t &#x3D; std::map&lt;std::string, Val&gt;</span><br><span class="line">&#x2F;&#x2F; ...</span><br><span class="line">str_map_t&lt;int&gt; map1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>typedef 与using语法对比</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;重定义unsigned int</span><br><span class="line">typedef unsigned int uint_t;</span><br><span class="line">using uint_t &#x3D; unsigned int;</span><br><span class="line">&#x2F;&#x2F;重定义std::map</span><br><span class="line">typedef std::map&lt;std::string, str&gt; map_int_t;</span><br><span class="line">using map_int_t &#x3D; std::map&lt;std::string, int&gt;;</span><br><span class="line">&#x2F;&#x2F;重定义一个函数指针</span><br><span class="line">typedef void(*func_t)(int, int);</span><br><span class="line">using func_t &#x3D; void(*)(int, int);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>using 定义模板别名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;* C++98&#x2F;03 *&#x2F;</span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">struct func_t</span><br><span class="line">&#123;</span><br><span class="line">	typedef void(*type)(T, T);</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;使用func_t 模板</span><br><span class="line">func_t&lt;int&gt;::type xx_t;</span><br><span class="line"></span><br><span class="line">&#x2F;* C++11 *&#x2F;</span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">using func_t &#x3D; void(*)(T, T)</span><br><span class="line">&#x2F;&#x2F;使用func_t模板</span><br><span class="line">func_t&lt;int&gt; xx_2;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="C-11支持函数模板的默认模板参数"><a href="#C-11支持函数模板的默认模板参数" class="headerlink" title="C++11支持函数模板的默认模板参数"></a>C++11支持函数模板的默认模板参数</h1><ul>
+<li><p>在C++98/03标准中，类模板可以有默认的模板参数，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T, typename U&#x3D;int, U N &#x3D; 0&gt;</span><br><span class="line">struct Foo</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>但是却不支持函数的默认模板餐宿</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T&#x3D;int&gt; &#x2F;&#x2F;error in C++98&#x2F;03:default template arguments</span><br><span class="line">void fun()</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是在C++11中这一限制被解除了。</p>
+</li>
+<li><p>函数模板的默认模板参数在使用规则上和其他的默认参数函数也有一些不同，它没有必须写在参数表最后的限制，甚至于，根据实际场景中函数模板被调用的情形，编译器还可以自行推导出部分模板参数的类型。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename R &#x3D; int, typename U&gt;</span><br><span class="line">R func(U val)</span><br><span class="line">&#123;</span><br><span class="line">	return val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	func(97);			&#x2F;&#x2F;R&#x3D;int, U&#x3D;int</span><br><span class="line">	func&lt;char&gt;(97);   	&#x2F;&#x2F;R&#x3D;char , U&#x3D;char</span><br><span class="line">	func&lt;double, int&gt;;	&#x2F;&#x2F;R&#x3D;double, U&#x3D;int</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="C-11列表初始化（统一了初始化方式）"><a href="#C-11列表初始化（统一了初始化方式）" class="headerlink" title="C++11列表初始化（统一了初始化方式）"></a>C++11列表初始化（统一了初始化方式）</h1><ul>
+<li><p>C++98/03中的对象初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;初始化列表</span><br><span class="line">int i_arr[3] &#x3D; &#123;1,2,3&#125;;  &#x2F;&#x2F;普通数组</span><br><span class="line">struct A</span><br><span class="line">&#123;</span><br><span class="line">	int x;</span><br><span class="line">	struct B</span><br><span class="line">	&#123;</span><br><span class="line">		int i;</span><br><span class="line">		int j;</span><br><span class="line">	&#125;b;</span><br><span class="line">&#125;a &#x3D; &#123;1, &#123;2,3&#125;&#125;;	&#x2F;&#x2F;POD类型(plain old data)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;拷贝初始化(copy-initialization)</span><br><span class="line">int i &#x3D; 0;</span><br><span class="line">class Foo</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">	Foo(int)&#123;&#125;</span><br><span class="line">&#125;foo&#x3D;123;		&#x2F;&#x2F;徐娅萍拷贝构造函数</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;直接初始化（direct-initialization）</span><br><span class="line">int j(0);</span><br><span class="line">Foo bar(123);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="C-11-lambda匿名函数用法"><a href="#C-11-lambda匿名函数用法" class="headerlink" title="C++11 lambda匿名函数用法"></a>C++11 lambda匿名函数用法</h1><ul>
+<li><p>定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[外部变量访问方式说明符](参数)mutable noexcept&#x2F;throw -&gt; 返回值类型</span><br><span class="line">&#123;</span><br><span class="line">	函数体;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>[外部变量访问方式说明符]</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[]方括用于向编译器表明当前是一个lambda表达式，其不能被省略。在方括号内部，可以注明当前lambda函数的函数体中可以使用哪些&quot;外部变量&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p><code>(参数)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">和普通函数的定义一样，lambda匿名函数也可以接收外部传递的多个参数。和普通函数不同的是，如果不需要传递参数，可以连同()小括号一起省略；</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>mutable</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">此关键字可以省略，如果使用则之前的()小括号将不能省略(参数个数可以为0)。默认情况下，对于以值传递方式引入的外部变量，不允许在lambda表达式内部修改它们的值(可以理解为这部分变量都是const常量)。而如果想修改它们，就必须使用mutable关键字。</span><br><span class="line">注意：对于以值传递方式引入的外部变量，lambda表达式修改的是拷贝的那一份，并不会修改真正的外部变量；</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>noexcept/throw()</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可以省略，如果使用，在之前的()小括号将不能省略(参数个数可以为0).默认情况下，lambda函数的函数体中可以抛出任何类型的异常。而标注noexcept关键字，则表示函数体内不会抛出任何异常；使用throw()可以指定lambda函数内部可以抛出的异常类型。</span><br><span class="line"></span><br><span class="line">如果lambda函数标有noexcept而函数体内抛出了异常，又或者使用throw()限定了异常类型而函数体内抛出了非指定类型的异常，这些异常无法使用try-catch捕获，会导致程序执行失败。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>-&gt; 返回值类型</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">指明lambda匿名函数的返回值类型。值得一提的是，如果lambda函数体内只有一个return语句，或者该函数返回void，则编辑器可以自行推断出返回类型，此情况可以直接忽略 &#39;-&gt;返回值类型&#39;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>函数体</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">和普通函数一样，lambda匿名函数包含的内部代码都放置在函数体中，该函数体除了可以使用指定传递进来的参数之外，还以可以使用指定的外部变量义级全局范围内的所有全局变量。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><code>lambda匿名函数中的[外部变量]</code></p>
+<table>
+<thead>
+<tr>
+<th>外部变量格式</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[]</td>
+<td>空方括号白哦是当前lambda匿名函数中不导入任何外部变量</td>
+</tr>
+<tr>
+<td>[=]</td>
+<td>只有一个 <code>=</code> 等号，表示以值传递的方式导入所有外部变量</td>
+</tr>
+<tr>
+<td>[val1, val2,…]</td>
+<td>表示以值传递的方式导入val1，val2等指定的外部变量，同时多个变量之间没有先后次序</td>
+</tr>
+<tr>
+<td>[&amp;val1, &amp;val2,…]</td>
+<td>表示以引用传递的方式导入val1，val2等指定的外部变量，多个变量之间没有先后次序</td>
+</tr>
+<tr>
+<td>[val,&amp;val2,…]</td>
+<td>以上两种方式还可以混合使用，变量之间内有前后次序</td>
+</tr>
+<tr>
+<td>[=,&amp;val1,…]</td>
+<td>表示除val1以引用传递的方式导入外，其他外部变量都以值传递的方式导入。</td>
+</tr>
+<tr>
+<td>this</td>
+<td>表示以值传递的方式导入当前的this指针</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h1 id="C-11非受限联合体-union"><a href="#C-11非受限联合体-union" class="headerlink" title="C++11非受限联合体(union)"></a>C++11非受限联合体(union)</h1><ul>
+<li>POD(Plain Old Data)的特征<ol>
+<li>没有用户自定义的构造函数，析构函数，拷贝构造函数和移动构造函数。</li>
+<li>不能包含虚函数和虚基类。</li>
+<li>不能包含虚函数和虚基类。</li>
+<li>非静态成员必须声明为public。</li>
+<li>类中的第一个非静态成员的类型与其基类不同</li>
+<li>在类或者结构体继承时，满足一下两种情况之一：<ul>
+<li>派生类中有非静态成员，且只有一个仅包含静态成员的基类；</li>
+<li>基类有非静态成员，而派生类没有非静态成员。</li>
+</ul>
+</li>
+<li>此外，所有兼容C语言的数据类型都是POD类型（struct， union等不能违背上述规则）</li>
+</ol>
+</li>
+<li>C++11允许联合体有静态成员</li>
+</ul>
+<h2 id="非受限联合体的复制注意事项"><a href="#非受限联合体的复制注意事项" class="headerlink" title="非受限联合体的复制注意事项"></a>非受限联合体的复制注意事项</h2><p>C++11规定，如果非首先联合体内有一个非POD的成员，而该成员拥有自定义的析构函数，那么这个非受限联合体的默认构造函数将被编译器删除；其他的特殊成员函数，例如默认拷贝构造函数，拷贝赋值操作符义级析构函数等，也将被删除。</p>
+<ul>
+<li><p>这条规则可能导致对象构造失败，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">union U&#123;</span><br><span class="line">	string s;</span><br><span class="line">	int n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	U u; 	&#x2F;&#x2F;构造失败，因为U的构造函数被删除</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>在上面的例子中，因为string类拥有自定义的构造函数，所以U的构造函数被删除；定义U的类型变量u需要调用默认构造函数，所以u也就无法定义成功。</p>
+<p>解决上面问题的一般需要用到 placement new，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">union U&#123;</span><br><span class="line">	string s;</span><br><span class="line">	int n;</span><br><span class="line">public:</span><br><span class="line">	U() &#123;new(&amp;s) string;&#125;</span><br><span class="line">	~U() &#123;s.~string();&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	U u; 	&#x2F;&#x2F;构造失败，因为U的构造函数被删除</span><br><span class="line">	</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="placement-new"><a href="#placement-new" class="headerlink" title="placement new"></a>placement new</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">placement new 是new关键字的一种进阶用法，既可以在栈（stack）上生成对象，也可以在堆(heap)上生成对象。相应地，将常见的new的用法称为operator new，它只能在heap上生成对象。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>placement new的语法格式如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new(address) ClassConstruct(...)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>address表示已有内存的地址，该内存可以在栈上，也可以在堆上；ClassConstruct(…)表示调用类的构造函数，如果构造哈数没有参数，也可以省略括号。</p>
+</li>
+<li><p>placement new 利用已经申请好的内存来生成对象，它不再为对象分配新的内存，而是将对象数据放在address指定的内存中。</p>
+</li>
+</ul>
+<h2 id="非受限联合体的匿名声明和“枚举式类”"><a href="#非受限联合体的匿名声明和“枚举式类”" class="headerlink" title="非受限联合体的匿名声明和“枚举式类”"></a>非受限联合体的匿名声明和“枚举式类”</h2><p>匿名联合体是指不具名的联合体（也即没有名字的联合体），一般定义如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">union U&#123;</span><br><span class="line">	union&#123;int x;&#125;;   &#x2F;&#x2F;此联合体为匿名联合体</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>同样的，非受限联合体也可以匿名，而当非受限的匿名联合体运用于类的声明时，这样的类被称为“枚举式类”，示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class Student&#123;</span><br><span class="line">public:</span><br><span class="line">    Student(bool g, int a): gender(g), age(a)&#123;&#125;</span><br><span class="line">    bool gender;</span><br><span class="line">    int age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Singler&#123;</span><br><span class="line">public:</span><br><span class="line">	enum Type &#123;STUDENT, NATIVE, FOREIGER&#125;;</span><br><span class="line">	Singer(bool g, int a) : s(g,a)&#123;t &#x3D; STUDENT;&#125;</span><br><span class="line">	Singer(int i): id(i)&#123;t &#x3D; NATIVE;&#125;</span><br><span class="line">	Singer(const char *n, int s)</span><br><span class="line">	&#123;</span><br><span class="line">		int size &#x3D; (s &gt; 9) ? 0 :s;</span><br><span class="line">		memcpy(name,n,size);</span><br><span class="line">		name[s] &#x3D; &#39;\0&#39;;</span><br><span class="line">		t &#x3D; FOREIGER;</span><br><span class="line">	&#125;</span><br><span class="line">	~Singer()&#123;&#125;</span><br><span class="line">private:</span><br><span class="line">	Type t;</span><br><span class="line">	union &#123;</span><br><span class="line">		Student s;</span><br><span class="line">		int id;</span><br><span class="line">		char name[10];</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    Singer(true, 13);</span><br><span class="line">    Singer(310217);</span><br><span class="line">    Singer(&quot;J Michael&quot;, 9);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中使用了一个匿名非受限联合体，它作为类Singer的“变长成员”来使用，这样的变长成员给类的编写带来了更大的灵活性。</p>
+<h1 id="C-11-for循环-基于范围的循环-详解"><a href="#C-11-for循环-基于范围的循环-详解" class="headerlink" title="C++11 for循环(基于范围的循环)详解"></a>C++11 for循环(基于范围的循环)详解</h1><p>for循环的格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(表达式 1; 表达式 2; 表达式 3)&#123;</span><br><span class="line">    &#x2F;&#x2F;循环体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在C++11中，新增了如下格式的循环</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (declaration : expression)&#123;</span><br><span class="line">    &#x2F;&#x2F;循环体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>declaration : 表示此处要定义一个变量，该变量的类型为要变量序列中存储元素的类型。在C++11标准中，declaration参数处定义的变量类型可以用auto关键字表示，该关键字可以使编译器自行推导出该变量的数据类型。</p>
+</li>
+<li><p>expression：表示要遍历的序列，常见的可以为事先定义好的普通数组或者容器，还可以是用 {} 大括号初始化的序列。</p>
+</li>
+<li><p>在使用新语法格式的for循环遍历某个序列时，如果需要遍历的同时修改序列中元素的值，实现方案是在declaration参数处定义引用形式的变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main() &#123;</span><br><span class="line">    char arc[] &#x3D; &quot;abcde&quot;;</span><br><span class="line">    vector&lt;char&gt;myvector(arc, arc + 5);</span><br><span class="line">    &#x2F;&#x2F;for循环遍历并修改容器中各个字符的值</span><br><span class="line">    for (auto &amp;ch : myvector) &#123;</span><br><span class="line">        ch++;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;for循环遍历输出容器中各个字符</span><br><span class="line">    for (auto ch : myvector) &#123;</span><br><span class="line">        cout &lt;&lt; ch;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="C-11-constexpr：验证是否为常量表达式"><a href="#C-11-constexpr：验证是否为常量表达式" class="headerlink" title="C++11 constexpr：验证是否为常量表达式"></a>C++11 constexpr：验证是否为常量表达式</h1><h1 id="C-11-右值引用"><a href="#C-11-右值引用" class="headerlink" title="C++11 右值引用"></a>C++11 右值引用</h1><table>
+<thead>
+<tr>
+<th>引用类型</th>
+<th>非常量左值</th>
+<th>常量左值</th>
+<th>非常量右值</th>
+<th>常量右值</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>非常量左值引用</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+<td>无</td>
+</tr>
+<tr>
+<td>常量左值引用</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>常用于类中构建拷贝构造函数</td>
+</tr>
+<tr>
+<td>非常量左值引用</td>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>N</td>
+<td>移动语义，完美转发</td>
+</tr>
+<tr>
+<td>常量右值引用</td>
+<td>N</td>
+<td>N</td>
+<td>Y</td>
+<td>Y</td>
+<td>无实际用途</td>
+</tr>
+</tbody></table>
+<h1 id="C-11-移动构造函数"><a href="#C-11-移动构造函数" class="headerlink" title="C++11 移动构造函数"></a>C++11 移动构造函数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">移动语义，指的是以移动而非深拷贝的方式初始化含有指针成员的类对象。简单的理解，移动语义指的是将其他对象（通常是临时对象）拥有的内存资源“移为己用”。</span><br></pre></td></tr></table></figure>
+
+<p>demo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">class demo</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">	&#x2F;* data *&#x2F;</span><br><span class="line">	int *num;</span><br><span class="line">public:</span><br><span class="line">	demo(&#x2F;* args *&#x2F;) : num(new int(0))&#123;</span><br><span class="line">		cout &lt;&lt;&quot;construct!&quot; &lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	demo(const demo &amp;d):num(new int(*d.num))</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;copy construct! &quot;&lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	demo(demo &amp;&amp;d):num(d.num)</span><br><span class="line">	&#123;</span><br><span class="line">		d.num &#x3D; NULL;</span><br><span class="line">		cout &lt;&lt; &quot;move construct!&quot; &lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	~demo()</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;class destruc!&quot; &lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">demo get_demo()</span><br><span class="line">&#123;</span><br><span class="line">	return demo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	demo a &#x3D; get_demo();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="C-11-move-函数：将左值强制转换为右值"><a href="#C-11-move-函数：将左值强制转换为右值" class="headerlink" title="C++11 move()函数：将左值强制转换为右值"></a>C++11 move()函数：将左值强制转换为右值</h1><ul>
+<li><p>移动构造函数的调用时机是：用同类的右值对象初始化新对象。</p>
+</li>
+<li><p>move() 函数的语法格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">move(arg)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>arg表示指定的左值对象。该函数会返回arg对象的右值形式。</li>
+</ul>
+</li>
+</ul>
+<h1 id="C-11-完美转发及实现方法"><a href="#C-11-完美转发及实现方法" class="headerlink" title="C++11 完美转发及实现方法"></a>C++11 完美转发及实现方法</h1><ul>
+<li><p>完美转发</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">完美转发指的是函数模板可以将自己的参数“完美”地转发给内部调用的其他函数。所谓完美，及不仅能准确地转发参数的值，还能保证被转发参数的左右值属性不变。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nullptr 是nullptr_t 类型的右值常量，专用于初始化空类型指针。</p>
+</li>
+</ul>
+<h1 id="C-11-shared-ptr智能指针"><a href="#C-11-shared-ptr智能指针" class="headerlink" title="C++11 shared_ptr智能指针"></a>C++11 shared_ptr智能指针</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">所谓智能指针，可以从字面上理解为“智能”的指针。具体来讲，智能指针和普通指针的用法是相似的，不同之处在于，智能指针可以在适当时机自动释放分配的内存。</span><br><span class="line">也就是说，使用智能指针可以很好的避免“忘记释放内存而导致内存泄漏”问题文献。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>shared_ptr 智能指针</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">智能指针都是以类模板的方式实现，shared_ptr&lt;T&gt; (T表示指针指向的具体数据类型) 使用需要包含如下两行代码</span><br><span class="line"></span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">多个 shared_ptr 智能指针可以共同使用同一块堆内存。并且，由于该类型智能指针在实现上采用的是引用计数机制，即便有一个 shared_ptr 指针放弃了堆内存的“使用权”（引用计数减 1），也不会影响其他指向同一堆内存的 shared_ptr 指针（只有引用计数为 0 时，堆内存才会被自动释放）。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>shared_ptr智能指针的创建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">std::shared_ptr&lt;int&gt; p1 ;  &#x2F;&#x2F;不传入任何实参</span><br><span class="line">std::shared_ptr&lt;int&gt; p2(nullptr);	&#x2F;&#x2F;传入空指针nullptr</span><br><span class="line">std::shared_ptr&lt;int&gt; p3(new int(10));  &#x2F;&#x2F;</span><br><span class="line">std::shared_ptr&lt;int&gt; p4 &#x3D; std::make_shared&lt;int&gt;(10);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>shared_ptr<T> 提供又相应的拷贝构造函数和移动构造函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;调用拷贝构造函数</span><br><span class="line">std::shared_ptr&lt;int&gt; p4(p3);</span><br><span class="line">&#x2F;&#x2F;或者 std::shared_ptr&lt;int&gt; p4 &#x3D; p3;</span><br><span class="line">&#x2F;&#x2F;调用移动构造函数</span><br><span class="line">std::shared_ptr&lt;int&gt; p5(std::move(p4)); </span><br><span class="line">&#x2F;&#x2F;或者 std::shared_ptr&lt;int&gt; p5 &#x3D; std::move(p4);</span><br><span class="line"></span><br><span class="line">p3 和 p4 都是 shared_ptr 类型的智能指针，因此可以用 p3 来初始化 p4，由于 p3 是左值，因此会调用拷贝构造函数。需要注意的是，如果 p3 为空智能指针，则 p4 也为空智能指针，其引用计数初始值为 0；反之，则表明 p4 和 p3 指向同一块堆内存，同时该堆空间的引用计数会加 1.</span><br><span class="line"></span><br><span class="line">而对于 std::move(p4) 来说，该函数会强制将 p4 转换成对应的右值，因此初始化 p5 调用的是移动构造函数。另外和调用拷贝构造函数不同，用 std::move(p4) 初始化 p5，会使得 p5 拥有了 p4 的堆内存，而 p4 则变成了空智能指针。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义shared_ptr智能指针的释放规则</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;指定 default_delete 作为释放规则</span><br><span class="line">std::shared_ptr&lt;int&gt; p6(new int[10], std::default_delete&lt;int[]&gt;());</span><br><span class="line">&#x2F;&#x2F;自定义释放规则</span><br><span class="line">void deleteInt(int*p) &#123;</span><br><span class="line">    delete []p;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;初始化智能指针，并自定义释放规则</span><br><span class="line">std::shared_ptr&lt;int&gt; p7(new int[10], deleteInt);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>shared_ptr&lt;T&gt;模板提供的成员方法</p>
+<table>
+<thead>
+<tr>
+<th>成员方法名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>operator=()</td>
+<td>重载赋值号，使得同一类型的 shared_ptr 智能指针可以相互赋值。</td>
+</tr>
+<tr>
+<td>operator*()</td>
+<td>重载*号，夺取当前shared_ptr智能指针对象指向的数据</td>
+</tr>
+<tr>
+<td>operator-&gt;()</td>
+<td>重载 -&gt; 号，当智能指针指向的数据类型为自定义的结构体时，通过 -&gt; 运算符可以获取其内部的指定成员。</td>
+</tr>
+<tr>
+<td>swap()</td>
+<td>交换 2 个相同类型 shared_ptr 智能指针的内容。</td>
+</tr>
+<tr>
+<td>reset()</td>
+<td>当函数没有实参时，该函数会使当前 shared_ptr 所指堆内存的引用计数减 1，同时将当前对象重置为一个空指针；当为函数传递一个新申请的堆内存时，则调用该函数的 shared_ptr 对象会获得该存储空间的所有权，并且引用计数的初始值为 1。</td>
+</tr>
+<tr>
+<td>get()</td>
+<td>获得 shared_ptr 对象内部包含的普通指针。</td>
+</tr>
+<tr>
+<td>use_count()</td>
+<td>返回同当前 shared_ptr 对象（包括它）指向相同的所有 shared_ptr 对象的数量。</td>
+</tr>
+<tr>
+<td>unique()</td>
+<td>判断当前 shared_ptr 对象指向的堆内存，是否不再有其它 shared_ptr 对象再指向它。</td>
+</tr>
+<tr>
+<td>operator bool()</td>
+<td>判断当前 shared_ptr 对象是否为空智能指针，如果是空指针，返回 false；反之，返回 true。</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;构建 2 个智能指针</span><br><span class="line">    std::shared_ptr&lt;int&gt; p1(new int(10));</span><br><span class="line">    std::shared_ptr&lt;int&gt; p2(p1);</span><br><span class="line">    &#x2F;&#x2F;输出 p2 指向的数据</span><br><span class="line">    cout &lt;&lt; *p2 &lt;&lt; endl;</span><br><span class="line">    p1.reset();&#x2F;&#x2F;引用计数减 1,p1为空指针</span><br><span class="line">    if (p1) &#123;</span><br><span class="line">        cout &lt;&lt; &quot;p1 不为空&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        cout &lt;&lt; &quot;p1 为空&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;以上操作，并不会影响 p2</span><br><span class="line">    cout &lt;&lt; *p2 &lt;&lt; endl;</span><br><span class="line">    &#x2F;&#x2F;判断当前和 p2 同指向的智能指针有多少个</span><br><span class="line">    cout &lt;&lt; p2.use_count() &lt;&lt; endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="C-11-unique-ptr智能指针"><a href="#C-11-unique-ptr智能指针" class="headerlink" title="C++11 unique_ptr智能指针"></a>C++11 unique_ptr智能指针</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">作为智能指针的一种，unique_ptr 指针自然也具备“在适当时机自动释放堆内存空间”的能力。和 shared_ptr 指针最大的不同之处在于，unique_ptr 指针指向的堆内存无法同其它 unique_ptr 共享，也就是说，每个 unique_ptr 指针都独自拥有对其所指堆内存空间的所有权。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>unique_ptr智能指针的创建</p>
+<ol>
+<li><p>创建空的unique_ptr指针</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::unique_ptr&lt;int&gt; p1();</span><br><span class="line">std::unique_ptr&lt;int&gt; p2(nullptr);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 unique_ptr 指针的同时，也可以明确其指向</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::unique_ptr&lt;int&gt; p3(new int);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于 unique_ptr 类型指针不共享各自拥有的堆内存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::unique_ptr&lt;int&gt; p4(new int);</span><br><span class="line">std::unique_ptr&lt;int&gt; p5(p4);&#x2F;&#x2F;错误，堆内存不共享</span><br><span class="line">std::unique_ptr&lt;int&gt; p5(std::move(p4));&#x2F;&#x2F;正确，调用移动构造函数</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认情况下，unique_ptr 指针采用 std::default_delete<T> 方法释放堆内存。当然，我们也可以自定义符合实际场景的释放规则。值得一提的是，和 shared_ptr 指针不同，为 unique_ptr 自定义释放规则，只能采用函数对象的方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;自定义的释放规则</span><br><span class="line">struct myDel</span><br><span class="line">&#123;</span><br><span class="line">    void operator()(int *p) &#123;</span><br><span class="line">        delete p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">std::unique_ptr&lt;int, myDel&gt; p6(new int);</span><br><span class="line">&#x2F;&#x2F;std::unique_ptr&lt;int, myDel&gt; p6(new int, myDel());</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>unique_ptr&lt;T&gt;模板类提供的成员方法</p>
+<table>
+<thead>
+<tr>
+<th>成员函数名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>operator*()</td>
+<td>获取当前 unique_ptr 指针指向的数据。</td>
+</tr>
+<tr>
+<td>operator-&gt;()</td>
+<td>重载 -&gt; 号，当智能指针指向的数据类型为自定义的结构体时，通过 -&gt; 运算符可以获取其内部的指定成员。</td>
+</tr>
+<tr>
+<td>operator =()</td>
+<td>重载了 = 赋值号，从而可以将 nullptr 或者一个右值 unique_ptr 指针直接赋值给当前同类型的 unique_ptr 指针。</td>
+</tr>
+<tr>
+<td>operator <a href=""></a></td>
+<td>重载了 [] 运算符，当 unique_ptr 指针指向一个数组时，可以直接通过 [] 获取指定下标位置处的数据。</td>
+</tr>
+<tr>
+<td>get()</td>
+<td>获取当前 unique_ptr 指针内部包含的普通指针。</td>
+</tr>
+<tr>
+<td>get_deleter()</td>
+<td>获取当前 unique_ptr 指针释放堆内存空间所用的规则。</td>
+</tr>
+<tr>
+<td>operator bool()</td>
+<td>unique_ptr 指针可直接作为 if 语句的判断条件，以判断该指针是否为空，如果为空，则为 false；反之为 true。</td>
+</tr>
+<tr>
+<td>release()</td>
+<td>释放当前 unique_ptr 指针对所指堆内存的所有权，但该存储空间并不会被销毁。</td>
+</tr>
+<tr>
+<td>reset(p)</td>
+<td>其中 p 表示一个普通指针，如果 p 为 nullptr，则当前 unique_ptr 也变成空指针；反之，则该函数会释放当前 unique_ptr 指针指向的堆内存（如果有），然后获取 p 所指堆内存的所有权（p 为 nullptr）。</td>
+</tr>
+<tr>
+<td>swap(x)</td>
+<td>交换当前 unique_ptr 指针和同类型的 x 指针。</td>
+</tr>
+</tbody></table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;memory&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    std::unique_ptr&lt;int&gt; p5(new int);</span><br><span class="line">    *p5 &#x3D; 10;</span><br><span class="line">    &#x2F;&#x2F; p 接收 p5 释放的堆内存</span><br><span class="line">    int * p &#x3D; p5.release();</span><br><span class="line">    cout &lt;&lt; *p &lt;&lt; endl;</span><br><span class="line">    &#x2F;&#x2F;判断 p5 是否为空指针</span><br><span class="line">    if (p5) &#123;</span><br><span class="line">        cout &lt;&lt; &quot;p5 is not nullptr&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        cout &lt;&lt; &quot;p5 is nullptr&quot; &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    std::unique_ptr&lt;int&gt; p6;</span><br><span class="line">    &#x2F;&#x2F;p6 获取 p 的所有权</span><br><span class="line">    p6.reset(p);</span><br><span class="line">    cout &lt;&lt; *p6 &lt;&lt; endl;;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="C-11-weak-ptr智能指针"><a href="#C-11-weak-ptr智能指针" class="headerlink" title="C++11 weak_ptr智能指针"></a>C++11 weak_ptr智能指针</h1><ul>
+<li><p>weak_ptr指针的创建</p>
+<ol>
+<li><p>创建一个空weak_ptr指针</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::weak_ptr&lt;int&gt; wp1;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>凭借已有的 weak_ptr 指针，可以创建一个新的 weak_ptr 指针</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::weak_ptr&lt;int&gt; wp2 (wp1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>weak_ptr 指针更常用于指向某一 shared_ptr 指针拥有的堆内存，因为在构建 weak_ptr 指针对象时，可以利用已有的 shared_ptr 指针为其初始化.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::shared_ptr&lt;int&gt; sp (new int);</span><br><span class="line">std::weak_ptr&lt;int&gt; wp3 (sp);</span><br></pre></td></tr></table></figure>
+
+<p>wp3 指针和 sp 指针有相同的指针。再次强调，weak_ptr 类型指针不会导致堆内存空间的引用计数增加或减少。</p>
+</li>
+</ol>
+</li>
+<li><p>weak_ptr模板类提供的成员方法</p>
+<table>
+<thead>
+<tr>
+<th>成员方法</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>operator=()</td>
+<td>重载 = 赋值运算符，是的 weak_ptr 指针可以直接被 weak_ptr 或者 shared_ptr 类型指针赋值。</td>
+</tr>
+<tr>
+<td>swap(x)</td>
+<td>其中 x 表示一个同类型的 weak_ptr 类型指针，该函数可以互换 2 个同类型 weak_ptr 指针的内容。</td>
+</tr>
+<tr>
+<td>reset()</td>
+<td>将当前 weak_ptr 指针置为空指针。</td>
+</tr>
+<tr>
+<td>use_count()</td>
+<td>查看指向和当前 weak_ptr 指针相同的 shared_ptr 指针的数量。</td>
+</tr>
+<tr>
+<td>expired()</td>
+<td>判断当前 weak_ptr 指针为否过期（指针为空，或者指向的堆内存已经被释放）。</td>
+</tr>
+<tr>
+<td>lock()</td>
+<td>如果当前 weak_ptr 已经过期，则该函数会返回一个空的 shared_ptr 指针；反之，该函数返回一个和当前 weak_ptr 指向相同的 shared_ptr 指针。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/08/%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%EF%BC%9F/" rel="prev" title="基础篇、到底应该怎么理解"平均负载"">
+      <i class="fa fa-chevron-left"></i> 基础篇、到底应该怎么理解"平均负载"
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11是什么，C-11标准的由来"><span class="nav-number">1.</span> <span class="nav-text">C++11是什么，C++11标准的由来</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-auto类型推导"><span class="nav-number">2.</span> <span class="nav-text">C++11 auto类型推导</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能说明"><span class="nav-number">2.1.</span> <span class="nav-text">功能说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法说明"><span class="nav-number">2.2.</span> <span class="nav-text">语法说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auto的高级用法"><span class="nav-number">2.3.</span> <span class="nav-text">auto的高级用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.3.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auto的限制"><span class="nav-number">2.4.</span> <span class="nav-text">auto的限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auto的应用"><span class="nav-number">2.5.</span> <span class="nav-text">auto的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-decltype类型推导"><span class="nav-number">3.</span> <span class="nav-text">C++11 decltype类型推导</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能说明-1"><span class="nav-number">3.1.</span> <span class="nav-text">功能说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法说明-1"><span class="nav-number">3.2.</span> <span class="nav-text">语法说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#decltype推导规则"><span class="nav-number">3.3.</span> <span class="nav-text">decltype推导规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例1"><span class="nav-number">3.3.1.</span> <span class="nav-text">实例1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例2：-exp为函数调用"><span class="nav-number">3.3.2.</span> <span class="nav-text">实例2： exp为函数调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例3-：exp是左值，或者被-包围"><span class="nav-number">3.3.3.</span> <span class="nav-text">实例3 ：exp是左值，或者被()包围</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#decltype-的实际应用"><span class="nav-number">3.4.</span> <span class="nav-text">decltype 的实际应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-auto和decltype的区别"><span class="nav-number">4.</span> <span class="nav-text">C++11 auto和decltype的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法格式的区别"><span class="nav-number">4.1.</span> <span class="nav-text">语法格式的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对cv限定符的处理"><span class="nav-number">4.2.</span> <span class="nav-text">对cv限定符的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对引用的处理"><span class="nav-number">4.3.</span> <span class="nav-text">对引用的处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-返回值类型后置"><span class="nav-number">5.</span> <span class="nav-text">C++11 返回值类型后置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能说明-2"><span class="nav-number">5.1.</span> <span class="nav-text">功能说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子一"><span class="nav-number">5.1.1.</span> <span class="nav-text">例子一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子二"><span class="nav-number">5.1.2.</span> <span class="nav-text">例子二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">5.2.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-对模板实例化中连续右尖括号-gt-gt-的改进"><span class="nav-number">6.</span> <span class="nav-text">C++11 对模板实例化中连续右尖括号&gt;&gt;的改进</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-使用using定义别名-替代typedef"><span class="nav-number">7.</span> <span class="nav-text">C++11 使用using定义别名(替代typedef)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11支持函数模板的默认模板参数"><span class="nav-number">8.</span> <span class="nav-text">C++11支持函数模板的默认模板参数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11列表初始化（统一了初始化方式）"><span class="nav-number">9.</span> <span class="nav-text">C++11列表初始化（统一了初始化方式）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-lambda匿名函数用法"><span class="nav-number">10.</span> <span class="nav-text">C++11 lambda匿名函数用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11非受限联合体-union"><span class="nav-number">11.</span> <span class="nav-text">C++11非受限联合体(union)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#非受限联合体的复制注意事项"><span class="nav-number">11.1.</span> <span class="nav-text">非受限联合体的复制注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#placement-new"><span class="nav-number">11.1.1.</span> <span class="nav-text">placement new</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非受限联合体的匿名声明和“枚举式类”"><span class="nav-number">11.2.</span> <span class="nav-text">非受限联合体的匿名声明和“枚举式类”</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-for循环-基于范围的循环-详解"><span class="nav-number">12.</span> <span class="nav-text">C++11 for循环(基于范围的循环)详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-constexpr：验证是否为常量表达式"><span class="nav-number">13.</span> <span class="nav-text">C++11 constexpr：验证是否为常量表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-右值引用"><span class="nav-number">14.</span> <span class="nav-text">C++11 右值引用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-移动构造函数"><span class="nav-number">15.</span> <span class="nav-text">C++11 移动构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-move-函数：将左值强制转换为右值"><span class="nav-number">16.</span> <span class="nav-text">C++11 move()函数：将左值强制转换为右值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-完美转发及实现方法"><span class="nav-number">17.</span> <span class="nav-text">C++11 完美转发及实现方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-shared-ptr智能指针"><span class="nav-number">18.</span> <span class="nav-text">C++11 shared_ptr智能指针</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-unique-ptr智能指针"><span class="nav-number">19.</span> <span class="nav-text">C++11 unique_ptr智能指针</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-11-weak-ptr智能指针"><span class="nav-number">20.</span> <span class="nav-text">C++11 weak_ptr智能指针</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yankai Guo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yankai Guo</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
