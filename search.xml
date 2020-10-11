@@ -42,9 +42,12 @@
       <categories>
         <category>Linux</category>
       </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
   </entry>
   <entry>
-    <title>C++11</title>
+    <title>C++11标准</title>
     <url>/C++11/</url>
     <content><![CDATA[<h1 id="C-11是什么，C-11标准的由来"><a href="#C-11是什么，C-11标准的由来" class="headerlink" title="C++11是什么，C++11标准的由来"></a>C++11是什么，C++11标准的由来</h1><h1 id="C-11-auto类型推导"><a href="#C-11-auto类型推导" class="headerlink" title="C++11 auto类型推导"></a>C++11 auto类型推导</h1><h2 id="功能说明"><a href="#功能说明" class="headerlink" title="功能说明"></a>功能说明</h2><p>C++11 使用auto来做自动类型推导，使用了auto关键字之后，编译器会在编译期间自动推导出变量的类型。</p>
 <h2 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> name = value</span><br></pre></td></tr></table></figure>
@@ -553,7 +556,10 @@
 </ul>
 ]]></content>
       <categories>
-        <category>C++</category>
+        <category>编程语言</category>
       </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
   </entry>
 </search>
