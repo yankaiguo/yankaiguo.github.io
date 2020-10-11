@@ -28,7 +28,7 @@
 <meta property="og:description" content="SOLID 原则SOLID原则并非单纯的一个原则，而是由五个设计原则组成，它们分别是单一职责原则,开闭原则，里氏替换原则，接口隔离原则和依赖原则, 依次对应SOLID中的S、O、L、I、D这五个字母。 单一职责原则单一职责原则的英文是Single Responsibility Principle，缩写为SRP. 英文描述为A Class or module should have a single">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-10-11T10:23:55.722Z">
+<meta property="article:modified_time" content="2020-10-11T16:23:14.494Z">
 <meta property="article:author" content="Yankai Guo">
 <meta property="article:tag" content="编程思想">
 <meta name="twitter:card" content="summary">
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-10-11 00:00:00 / Modified: 18:23:55" itemprop="dateCreated datePublished" datetime="2020-10-11T00:00:00+08:00">2020-10-11</time>
+              <time title="Created: 2020-10-11 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-11T00:00:00+08:00">2020-10-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-12 00:23:14" itemprop="dateModified" datetime="2020-10-12T00:23:14+08:00">2020-10-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -238,7 +244,43 @@
       
         <h1 id="SOLID-原则"><a href="#SOLID-原则" class="headerlink" title="SOLID 原则"></a>SOLID 原则</h1><p>SOLID原则并非单纯的一个原则，而是由五个设计原则组成，它们分别是<code>单一职责原则</code>,<code>开闭原则</code>，<code>里氏替换原则</code>，<code>接口隔离原则</code>和<code>依赖原则</code>, 依次对应SOLID中的S、O、L、I、D这五个字母。</p>
 <h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><p>单一职责原则的英文是<code>Single Responsibility Principle</code>，缩写为SRP. 英文描述为<code>A Class or module should have a single responsibility</code>.翻译成中文是<code>一个类或模块只负责完成一个职责（或者功能）</code>。</p>
-<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><h1 id="YAGNI原则"><a href="#YAGNI原则" class="headerlink" title="YAGNI原则"></a>YAGNI原则</h1><h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1>
+<p>在实际编程中，可以参考如下几条判断原则来评判代码是否符合单一职责原则。</p>
+<ul>
+<li>类中的代码行数，函数或属性过多，会影响代码的可读性和可维护性，这时我们要考虑对类进行拆分</li>
+<li>类依赖的其他类过多，或者依赖类的其它类过多， 不符合高内聚，低耦合的设计思想，这时我们要考虑对类进行拆分</li>
+<li>私有方法过多，这是我们需要考虑是否将私有方法独立到新的类中，设置为public方法，供更多的类使用，从而提供代码的复用性</li>
+<li>比较难给类起一个合适名字，很难用一个业务名词概括，或者智能用一些笼统的Manager，Context之类的词语来命名，这就说明类的职责定义可能不够清晰</li>
+<li>类中大量的方法都集中操作类中的某几个属性。</li>
+</ul>
+<p>单一职责原则通过避免设计大而全的类，避免将不相关的额功能耦合在起义，来提高类的内聚性。同时，类职责单一，类依赖的和被依赖的其它类也会变少，减少了代码的耦合性。以此来实现代码的高内聚，低耦合。但是，如果拆分得过细，实际上会适得其反，反倒会降低内聚性，也会影响代码得可维护性。</p>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p>开闭原则的英文全称是<code>Open Closed Principle</code>,简写为OCP。它的英文描述为:<code>software entities(modules,classes,functions,etc) should be open for extension,but closed for modification</code>。中文描述是：<code>软件实体(模块，类，方法等)应该对扩展开放，对修改关闭</code>。详细描述为: <code>添加一个新的功能应该是，在已有代码基础上扩展代码(新增模块，类，方法等)，而非修改已有代码(修改模块，类，方法等)</code>。</p>
+<h3 id="如何做到”对扩展开放，对修改关闭“？"><a href="#如何做到”对扩展开放，对修改关闭“？" class="headerlink" title="如何做到”对扩展开放，对修改关闭“？"></a>如何做到”对扩展开放，对修改关闭“？</h3><p>我饿们要时刻具备扩展意识，抽象意识，封装意识。在写代码的时候，要多花点时间思考以下，这段代码未来可能有哪些需求变更，如何设计代码结构，事先留好扩展点，以便在未来需求变更的时候，在不改动代码整体结构，做到最小代码改动的情况下，将新的代码灵活地插入到扩展点上。</p>
+<h2 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h2><p>里氏替换原则的英文全称是<code>Liskov Substitution Principle</code>,缩写为LSP。这个原则最早是在1986年由Barbara Liskov 提出，他是这么描述这条原则的:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If S is a subtype of T, then objects of type T may be replaced with objects of type S, without breaking the program.</span><br></pre></td></tr></table></figure>
+
+<p>在1996年，Robert Martin 在他的SOLID原则中，重新描述了这个原则，英文原话是这样的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Functions that use pointers of references to base class must be able to use objects of derived classes without knowing it.</span><br></pre></td></tr></table></figure>
+
+<p>综合两者的描述，我们可以描述为：<code>子类对象(object of subtype /derived class)能够替换程序(program)中父类对象(object of base/parent class)出现的任何地方，并且保证原来程序的逻辑行为(behavior)不变及正确性不被破坏</code>。</p>
+<h3 id="哪些代码明显违背了LSP"><a href="#哪些代码明显违背了LSP" class="headerlink" title="哪些代码明显违背了LSP?"></a>哪些代码明显违背了LSP?</h3><ul>
+<li>子类违背父类声明要实现的功能。</li>
+<li>子类违背父类对输入，输出，异常的约定。</li>
+<li>子类违背父类注释中所罗列的任何特殊说明。</li>
+</ul>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><h2 id="依赖反转原则"><a href="#依赖反转原则" class="headerlink" title="依赖反转原则"></a>依赖反转原则</h2><h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><p>KISS原则的英文描述有好几个版本，比如下面几个</p>
+<ul>
+<li>Keep It Simple and Stupid</li>
+<li>Keep It Short and Simple</li>
+<li>Keep It Simple and Straightforward</li>
+</ul>
+<p>不过要表达的原则其实差不多，翻译成中文就是：尽量保持简单。</p>
+<h3 id="如何写出满足KISS原则的代码？"><a href="#如何写出满足KISS原则的代码？" class="headerlink" title="如何写出满足KISS原则的代码？"></a>如何写出满足KISS原则的代码？</h3><ul>
+<li>不要使用同时可能不懂的技术实现代码。比如使用复杂的正则表达式，或者一些编程语言中过于高级的语法等。</li>
+<li>不要重复造轮子，要善于使用已经有的工具类库。经验证明，自己去实现这些类库，出bug的概率会更高，维护的成本也比较高。</li>
+<li>不要过度优化。不要过度使用一些奇技淫巧(比如，位运算代替算术，复杂的条件语句代替if-else，使用一些过于底层的函数等)来优化代码，牺牲代码的可读性。</li>
+</ul>
+<h1 id="YAGNI原则"><a href="#YAGNI原则" class="headerlink" title="YAGNI原则"></a>YAGNI原则</h1><p>YANNI原则的英文是<code>You Ain&#39;t Gonna Need It</code>。直译就是:<code>你不会需要它</code>.在软件开发中，它的意思是：<code>不要去设计当前用不到的功能；不要去编写当前用不到的代码。</code>其核心思想是– 不要做过度设计。</p>
+<h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1>
     </div>
 
     
@@ -257,8 +299,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/cbc30407.html" rel="prev" title="C++11标准">
-      <i class="fa fa-chevron-left"></i> C++11标准
+    <a href="/dc0156fc.html" rel="prev" title="基础篇、到底应该怎么理解"平均负载"">
+      <i class="fa fa-chevron-left"></i> 基础篇、到底应该怎么理解"平均负载"
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -319,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SOLID-原则"><span class="nav-number">1.</span> <span class="nav-text">SOLID 原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单一职责原则"><span class="nav-number">1.1.</span> <span class="nav-text">单一职责原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开闭原则"><span class="nav-number">1.2.</span> <span class="nav-text">开闭原则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#KISS-原则"><span class="nav-number">2.</span> <span class="nav-text">KISS 原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YAGNI原则"><span class="nav-number">3.</span> <span class="nav-text">YAGNI原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DRY原则"><span class="nav-number">4.</span> <span class="nav-text">DRY原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LOD原则"><span class="nav-number">5.</span> <span class="nav-text">LOD原则</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SOLID-原则"><span class="nav-number">1.</span> <span class="nav-text">SOLID 原则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单一职责原则"><span class="nav-number">1.1.</span> <span class="nav-text">单一职责原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开闭原则"><span class="nav-number">1.2.</span> <span class="nav-text">开闭原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何做到”对扩展开放，对修改关闭“？"><span class="nav-number">1.2.1.</span> <span class="nav-text">如何做到”对扩展开放，对修改关闭“？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#里氏替换原则"><span class="nav-number">1.3.</span> <span class="nav-text">里氏替换原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些代码明显违背了LSP"><span class="nav-number">1.3.1.</span> <span class="nav-text">哪些代码明显违背了LSP?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口隔离原则"><span class="nav-number">1.4.</span> <span class="nav-text">接口隔离原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖反转原则"><span class="nav-number">1.5.</span> <span class="nav-text">依赖反转原则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#KISS-原则"><span class="nav-number">2.</span> <span class="nav-text">KISS 原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何写出满足KISS原则的代码？"><span class="nav-number">2.0.1.</span> <span class="nav-text">如何写出满足KISS原则的代码？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YAGNI原则"><span class="nav-number">3.</span> <span class="nav-text">YAGNI原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DRY原则"><span class="nav-number">4.</span> <span class="nav-text">DRY原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LOD原则"><span class="nav-number">5.</span> <span class="nav-text">LOD原则</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
