@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>C++11标准</title>
-    <url>/C++11/</url>
+    <url>/posts/26600.html</url>
     <content><![CDATA[<h1 id="C-11是什么，C-11标准的由来"><a href="#C-11是什么，C-11标准的由来" class="headerlink" title="C++11是什么，C++11标准的由来"></a>C++11是什么，C++11标准的由来</h1><h1 id="C-11-auto类型推导"><a href="#C-11-auto类型推导" class="headerlink" title="C++11 auto类型推导"></a>C++11 auto类型推导</h1><h2 id="功能说明"><a href="#功能说明" class="headerlink" title="功能说明"></a>功能说明</h2><p>C++11 使用auto来做自动类型推导，使用了auto关键字之后，编译器会在编译期间自动推导出变量的类型。</p>
 <h2 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> name = value</span><br></pre></td></tr></table></figure>
 
@@ -518,7 +518,7 @@
   </entry>
   <entry>
     <title>基础篇、到底应该怎么理解&quot;平均负载&quot;</title>
-    <url>/%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B3%E5%9D%87%E8%B4%9F%E8%BD%BD%EF%BC%9F/</url>
+    <url>/posts/17030.html</url>
     <content><![CDATA[<h1 id="什么是平均负载？"><a href="#什么是平均负载？" class="headerlink" title="什么是平均负载？"></a>什么是平均负载？</h1><p>正确定义：<br><code>平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和CPU使用率并没有直接关系。</code></p>
 <p>错误定义：<br><code>单位时间内的CPU使用率</code><br>下面先介绍一下可运行状态进程和不可中断状态进程：<br>1. 可运行状态进程</p>
 <p><code>可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。</code></p>
@@ -561,5 +561,12 @@
       <tags>
         <tag>linux</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>设计模式</title>
+    <url>/posts/364ea8cc.html</url>
+    <content><![CDATA[<hr>
+<hr>
+]]></content>
   </entry>
 </search>
