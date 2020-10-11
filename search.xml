@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>C++11标准</title>
-    <url>/posts/26600.html</url>
+    <url>/26600.html</url>
     <content><![CDATA[<h1 id="C-11是什么，C-11标准的由来"><a href="#C-11是什么，C-11标准的由来" class="headerlink" title="C++11是什么，C++11标准的由来"></a>C++11是什么，C++11标准的由来</h1><h1 id="C-11-auto类型推导"><a href="#C-11-auto类型推导" class="headerlink" title="C++11 auto类型推导"></a>C++11 auto类型推导</h1><h2 id="功能说明"><a href="#功能说明" class="headerlink" title="功能说明"></a>功能说明</h2><p>C++11 使用auto来做自动类型推导，使用了auto关键字之后，编译器会在编译期间自动推导出变量的类型。</p>
 <h2 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> name = value</span><br></pre></td></tr></table></figure>
 
@@ -518,7 +518,7 @@
   </entry>
   <entry>
     <title>基础篇、到底应该怎么理解&quot;平均负载&quot;</title>
-    <url>/posts/17030.html</url>
+    <url>/17030.html</url>
     <content><![CDATA[<h1 id="什么是平均负载？"><a href="#什么是平均负载？" class="headerlink" title="什么是平均负载？"></a>什么是平均负载？</h1><p>正确定义：<br><code>平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和CPU使用率并没有直接关系。</code></p>
 <p>错误定义：<br><code>单位时间内的CPU使用率</code><br>下面先介绍一下可运行状态进程和不可中断状态进程：<br>1. 可运行状态进程</p>
 <p><code>可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。</code></p>
@@ -563,10 +563,16 @@
       </tags>
   </entry>
   <entry>
-    <title>设计模式</title>
-    <url>/posts/364ea8cc.html</url>
-    <content><![CDATA[<hr>
-<hr>
-]]></content>
+    <title>设计模式之设计原则</title>
+    <url>/4a7ab732.html</url>
+    <content><![CDATA[<h1 id="SOLID-原则"><a href="#SOLID-原则" class="headerlink" title="SOLID 原则"></a>SOLID 原则</h1><p>SOLID原则并非单纯的一个原则，而是由五个设计原则组成，它们分别是<code>单一职责原则</code>,<code>开闭原则</code>，<code>里氏替换原则</code>，<code>接口隔离原则</code>和<code>依赖原则</code>, 依次对应SOLID中的S、O、L、I、D这五个字母。</p>
+<h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><p>单一职责原则的英文是<code>Single Responsibility Principle</code>，缩写为SRP. 英文描述为<code>A Class or module should have a single responsibility</code>.翻译成中文是<code>一个类或模块只负责完成一个职责（或者功能）</code>。</p>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><h1 id="YAGNI原则"><a href="#YAGNI原则" class="headerlink" title="YAGNI原则"></a>YAGNI原则</h1><h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>编程思想</tag>
+      </tags>
   </entry>
 </search>
