@@ -42,7 +42,17 @@
 <h3 id="把“接口”理解为一组API-接口集合"><a href="#把“接口”理解为一组API-接口集合" class="headerlink" title="把“接口”理解为一组API 接口集合"></a>把“接口”理解为一组API 接口集合</h3><p>我们把接口隔离原则中的接口，理解为一组接口集合，它可以是某个微服务的接口，也可以是某个类库的接口等。在设计微服务或者类库接口的时候，如果部分接口只被部分调用者使用，那我们就需要将这部分接口隔离出来，单独给对应的调用者使用，而不是强迫其他调用者也依赖这部分不会被用到的接口。</p>
 <h3 id="把“接口”理解为单个API接口或者函数"><a href="#把“接口”理解为单个API接口或者函数" class="headerlink" title="把“接口”理解为单个API接口或者函数"></a>把“接口”理解为单个API接口或者函数</h3><p>接口隔离原则跟单一职责原则有点类似，不过稍微有点区别。单一职责原则针对的是模块，类，接口的设计。而接口隔离原则相对于单一职责原则，一方面它更侧重于接口的设计，另一方面它的思考的角度不同。它提供了一种判断接口是否职责单一的标准：通过调用者如何使用接来间接地判定。如果调用者只使用部分接口或接口的部分功能，那接口的设计就不够职责单一。</p>
 <h3 id="把“接口”理解为OOP中的接口概念"><a href="#把“接口”理解为OOP中的接口概念" class="headerlink" title="把“接口”理解为OOP中的接口概念"></a>把“接口”理解为OOP中的接口概念</h3><p>TODO</p>
-<h2 id="依赖反转原则"><a href="#依赖反转原则" class="headerlink" title="依赖反转原则"></a>依赖反转原则</h2><h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><p>KISS原则的英文描述有好几个版本，比如下面几个</p>
+<h2 id="依赖反转原则"><a href="#依赖反转原则" class="headerlink" title="依赖反转原则"></a>依赖反转原则</h2><h3 id="控制反转-IOC"><a href="#控制反转-IOC" class="headerlink" title="控制反转(IOC)"></a>控制反转(IOC)</h3><p>框架提供了一个可扩展的代码骨架，用来组装对象，管理整个执行流程。程序员进行开发的时候，只需要往预留的扩展点上，添加跟自己业务相关的代码，就可以利用框架来驱动整个程序流程的执行。</p>
+<p>这里的“控制”指的是对程序流程的控制，而“反转”指的是在没有使用框架之前，程序员自己控制整个程序的执行。在使用框架之后，整个程序的执行流程可以通过框架来控制。流程的控制权从程序员“反转”到了框架。</p>
+<h3 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入(DI)"></a>依赖注入(DI)</h3><p>依赖注入跟控制反转相反，它是一种具体的编程技巧。依赖注入的英文翻译是<code>Dependency Injecrtion</code>,缩写为DI.</p>
+<p>依赖注入：不通过new()的方式在类内部创建依赖对象，而是将依赖的类对象在外部创建好之后，通过构造函数，函数参数等方式传递(注入)给类使用。</p>
+<p>通过依赖注入的方式将以来的类对象传递进来，可以提高代码的扩展性，可以灵活地替换依赖的类。</p>
+<h3 id="依赖注入框架-DI-Framework"><a href="#依赖注入框架-DI-Framework" class="headerlink" title="依赖注入框架(DI Framework)"></a>依赖注入框架(DI Framework)</h3><p>在实际的软件开发中，一些项目可能会涉及几十，上百，甚至几百个类，类对象的创建和依赖注入会变得非常复杂。如果这部分工作都是靠程序员自己写代码来完成，容易出错且开发成本也比较高。而对象创建来依赖的注入的工作，本身跟具体的业务无关，我们完全可以抽象成框架来自动完成。这个框架就是“依赖注入框架”。</p>
+<h3 id="依赖反转原则-DIP"><a href="#依赖反转原则-DIP" class="headerlink" title="依赖反转原则(DIP)"></a>依赖反转原则(DIP)</h3><p>依赖反转原则的英文是<code>Dependency Inversion Principle</code>，缩写为DIP。中文翻译有时候也叫依赖倒置原则。英文描述为:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">High-level modules shouldn&#39;t depend on low-level modules.Both modules should depend on abstractions. In addition,abstractions shouldn&#39;t depend on details. Details depend on abstractions.</span><br></pre></td></tr></table></figure>
+
+<p>翻译为中文，大概意思是：高层模块(high-level modules)不要依赖底层模块(low-level)。高层模块和底层模块应该通过抽象(abstraction)来相互依赖，除此之外，抽象(abstractions)不要依赖具体实现细节(details)，具体实现细节(details)依赖抽象(abstractions)。</p>
+<h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><p>KISS原则的英文描述有好几个版本，比如下面几个</p>
 <ul>
 <li>Keep It Simple and Stupid</li>
 <li>Keep It Short and Simple</li>
@@ -55,7 +65,8 @@
 <li>不要过度优化。不要过度使用一些奇技淫巧(比如，位运算代替算术，复杂的条件语句代替if-else，使用一些过于底层的函数等)来优化代码，牺牲代码的可读性。</li>
 </ul>
 <h1 id="YAGNI原则"><a href="#YAGNI原则" class="headerlink" title="YAGNI原则"></a>YAGNI原则</h1><p>YANNI原则的英文是<code>You Ain&#39;t Gonna Need It</code>。直译就是:<code>你不会需要它</code>.在软件开发中，它的意思是：<code>不要去设计当前用不到的功能；不要去编写当前用不到的代码。</code>其核心思想是– 不要做过度设计。</p>
-<h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1><p>迪米特法则的英文是<code>Law of Demeter</code>,缩写是LOD。</p>
+<h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><p>DRY的英文描述为：Don’t Repeat Yourself.</p>
+<h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1><p>迪米特法则的英文是<code>Law of Demeter</code>,缩写是LOD。</p>
 ]]></content>
       <categories>
         <category>设计模式</category>
