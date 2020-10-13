@@ -28,7 +28,21 @@
 <li>子类违背父类对输入，输出，异常的约定。</li>
 <li>子类违背父类注释中所罗列的任何特殊说明。</li>
 </ul>
-<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><h2 id="依赖反转原则"><a href="#依赖反转原则" class="headerlink" title="依赖反转原则"></a>依赖反转原则</h2><h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><p>KISS原则的英文描述有好几个版本，比如下面几个</p>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>接口隔离原则的英文是<code>Interface Segregation Principle</code>,缩写为<code>ISP</code>.Robert Martin在SOLID原则的定义如下。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Clients should not be forced to depend upon interface that they do not use.</span><br></pre></td></tr></table></figure>
+
+<p>直译成中文就是：<code>客户端不应该被迫依赖它不需要的接口</code>。其中的“客户端”，可以理解为接口的调用者或者使用者。</p>
+<p>实际上，<code>接口</code>这个名词可以用在很多场合。在软件开发中，我们既可以把它看作一组抽象的约定，也可以具体指系统与系统之间的API接口，还可以指面向对象编程语言中的接口。</p>
+<p>我们可以把”接口”理解为下面三种东西：</p>
+<ul>
+<li>一组API接口集合</li>
+<li>单个API接口或函数</li>
+<li>OOP中的接口概念</li>
+</ul>
+<h3 id="把“接口”理解为一组API-接口集合"><a href="#把“接口”理解为一组API-接口集合" class="headerlink" title="把“接口”理解为一组API 接口集合"></a>把“接口”理解为一组API 接口集合</h3><p>我们把接口隔离原则中的接口，理解为一组接口集合，它可以是某个微服务的接口，也可以是某个类库的接口等。在设计微服务或者类库接口的时候，如果部分接口只被部分调用者使用，那我们就需要将这部分接口隔离出来，单独给对应的调用者使用，而不是强迫其他调用者也依赖这部分不会被用到的接口。</p>
+<h3 id="把“接口”理解为单个API接口或者函数"><a href="#把“接口”理解为单个API接口或者函数" class="headerlink" title="把“接口”理解为单个API接口或者函数"></a>把“接口”理解为单个API接口或者函数</h3><p>接口隔离原则跟单一职责原则有点类似，不过稍微有点区别。单一职责原则针对的是模块，类，接口的设计。而接口隔离原则相对于单一职责原则，一方面它更侧重于接口的设计，另一方面它的思考的角度不同。它提供了一种判断接口是否职责单一的标准：通过调用者如何使用接来间接地判定。如果调用者只使用部分接口或接口的部分功能，那接口的设计就不够职责单一。</p>
+<h3 id="把“接口”理解为OOP中的接口概念"><a href="#把“接口”理解为OOP中的接口概念" class="headerlink" title="把“接口”理解为OOP中的接口概念"></a>把“接口”理解为OOP中的接口概念</h3><p>TODO</p>
+<h2 id="依赖反转原则"><a href="#依赖反转原则" class="headerlink" title="依赖反转原则"></a>依赖反转原则</h2><h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><p>KISS原则的英文描述有好几个版本，比如下面几个</p>
 <ul>
 <li>Keep It Simple and Stupid</li>
 <li>Keep It Short and Simple</li>
@@ -41,7 +55,8 @@
 <li>不要过度优化。不要过度使用一些奇技淫巧(比如，位运算代替算术，复杂的条件语句代替if-else，使用一些过于底层的函数等)来优化代码，牺牲代码的可读性。</li>
 </ul>
 <h1 id="YAGNI原则"><a href="#YAGNI原则" class="headerlink" title="YAGNI原则"></a>YAGNI原则</h1><p>YANNI原则的英文是<code>You Ain&#39;t Gonna Need It</code>。直译就是:<code>你不会需要它</code>.在软件开发中，它的意思是：<code>不要去设计当前用不到的功能；不要去编写当前用不到的代码。</code>其核心思想是– 不要做过度设计。</p>
-<h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1>]]></content>
+<h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1><p>迪米特法则的英文是<code>Law of Demeter</code>,缩写是LOD。</p>
+]]></content>
       <categories>
         <category>设计模式</category>
       </categories>
