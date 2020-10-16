@@ -919,8 +919,28 @@ F[横向流程图]</code></pre><p>​```</p>
       </tags>
   </entry>
   <entry>
-    <title>版本控制/git版本控制</title>
-    <url>/2de28e33.html</url>
+    <title>git 基本使用</title>
+    <url>/afe9f8c3.html</url>
+    <content><![CDATA[<p>Git是一个开源的分布式版本控制系统，用于敏捷搞笑地处理任何或大或小的项目。Git与常用的版本控制工具CVS，Subversion等不同，它采用了分布式版本库的方式，不必服务器软件支持。</p>
+<h1 id="Git-与SVN区别"><a href="#Git-与SVN区别" class="headerlink" title="Git 与SVN区别"></a>Git 与SVN区别</h1><p>Git不仅仅是个版本控制系统，它也是个内容管理系统（CMS），工作管理系统等。Git与SVN区别点:</p>
+<ul>
+<li>Git是分布式的，SVN不是</li>
+<li>Git把内容按元数据方式存储，而SVN是按文件：所有的资源控制系统都是把文件的元信息隐藏在一个类似.svn, cvs等的文件夹里。</li>
+<li>Git分支和SVN的分支不同: 分支在SVN中一点都不特别，其实它就是版本库中的另外一个目录。</li>
+<li>Git没有一个全局的版本号，而SVN有。</li>
+<li>Git的内容完整性要优于SVN：Git的内容存储使用的是SHA-1哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>编程工具</category>
+      </categories>
+      <tags>
+        <tag>版本控制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Untitled</title>
+    <url>/503970b4.html</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
