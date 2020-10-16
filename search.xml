@@ -1,115 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>设计模式之设计原则</title>
-    <url>/4a7ab732.html</url>
-    <content><![CDATA[<h1 id="SOLID-原则"><a href="#SOLID-原则" class="headerlink" title="SOLID 原则"></a>SOLID 原则</h1><p>SOLID原则并非单纯的一个原则，而是由五个设计原则组成，它们分别是<code>单一职责原则</code>,<code>开闭原则</code>，<code>里氏替换原则</code>，<code>接口隔离原则</code>和<code>依赖原则</code>, 依次对应SOLID中的S、O、L、I、D这五个字母。</p>
-<h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><p>单一职责原则的英文是<code>Single Responsibility Principle</code>，缩写为SRP. 英文描述为<code>A Class or module should have a single responsibility</code>.翻译成中文是<code>一个类或模块只负责完成一个职责（或者功能）</code>。</p>
-<p>在实际编程中，可以参考如下几条判断原则来评判代码是否符合单一职责原则。</p>
-<ul>
-<li>类中的代码行数，函数或属性过多，会影响代码的可读性和可维护性，这时我们要考虑对类进行拆分</li>
-<li>类依赖的其他类过多，或者依赖类的其它类过多， 不符合高内聚，低耦合的设计思想，这时我们要考虑对类进行拆分</li>
-<li>私有方法过多，这是我们需要考虑是否将私有方法独立到新的类中，设置为public方法，供更多的类使用，从而提供代码的复用性</li>
-<li>比较难给类起一个合适名字，很难用一个业务名词概括，或者智能用一些笼统的Manager，Context之类的词语来命名，这就说明类的职责定义可能不够清晰</li>
-<li>类中大量的方法都集中操作类中的某几个属性。</li>
-</ul>
-<p>单一职责原则通过避免设计大而全的类，避免将不相关的额功能耦合在起义，来提高类的内聚性。同时，类职责单一，类依赖的和被依赖的其它类也会变少，减少了代码的耦合性。以此来实现代码的高内聚，低耦合。但是，如果拆分得过细，实际上会适得其反，反倒会降低内聚性，也会影响代码得可维护性。</p>
-<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p>开闭原则的英文全称是<code>Open Closed Principle</code>,简写为OCP。它的英文描述为:<code>software entities(modules,classes,functions,etc) should be open for extension,but closed for modification</code>。中文描述是：<code>软件实体(模块，类，方法等)应该对扩展开放，对修改关闭</code>。详细描述为: <code>添加一个新的功能应该是，在已有代码基础上扩展代码(新增模块，类，方法等)，而非修改已有代码(修改模块，类，方法等)</code>。</p>
-<h3 id="如何做到”对扩展开放，对修改关闭“？"><a href="#如何做到”对扩展开放，对修改关闭“？" class="headerlink" title="如何做到”对扩展开放，对修改关闭“？"></a>如何做到”对扩展开放，对修改关闭“？</h3><p>我饿们要时刻具备扩展意识，抽象意识，封装意识。在写代码的时候，要多花点时间思考以下，这段代码未来可能有哪些需求变更，如何设计代码结构，事先留好扩展点，以便在未来需求变更的时候，在不改动代码整体结构，做到最小代码改动的情况下，将新的代码灵活地插入到扩展点上。</p>
-<h2 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h2><p>里氏替换原则的英文全称是<code>Liskov Substitution Principle</code>,缩写为LSP。这个原则最早是在1986年由Barbara Liskov 提出，他是这么描述这条原则的:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">If S is a subtype of T, then objects of type T may be replaced with objects of type S, without breaking the program.</span><br></pre></td></tr></table></figure>
-
-<p>在1996年，Robert Martin 在他的SOLID原则中，重新描述了这个原则，英文原话是这样的。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Functions that use pointers of references to base class must be able to use objects of derived classes without knowing it.</span><br></pre></td></tr></table></figure>
-
-<p>综合两者的描述，我们可以描述为：<code>子类对象(object of subtype /derived class)能够替换程序(program)中父类对象(object of base/parent class)出现的任何地方，并且保证原来程序的逻辑行为(behavior)不变及正确性不被破坏</code>。</p>
-<h3 id="哪些代码明显违背了LSP"><a href="#哪些代码明显违背了LSP" class="headerlink" title="哪些代码明显违背了LSP?"></a>哪些代码明显违背了LSP?</h3><ul>
-<li>子类违背父类声明要实现的功能。</li>
-<li>子类违背父类对输入，输出，异常的约定。</li>
-<li>子类违背父类注释中所罗列的任何特殊说明。</li>
-</ul>
-<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>接口隔离原则的英文是<code>Interface Segregation Principle</code>,缩写为<code>ISP</code>.Robert Martin在SOLID原则的定义如下。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Clients should not be forced to depend upon interface that they do not use.</span><br></pre></td></tr></table></figure>
-
-<p>直译成中文就是：<code>客户端不应该被迫依赖它不需要的接口</code>。其中的“客户端”，可以理解为接口的调用者或者使用者。</p>
-<p>实际上，<code>接口</code>这个名词可以用在很多场合。在软件开发中，我们既可以把它看作一组抽象的约定，也可以具体指系统与系统之间的API接口，还可以指面向对象编程语言中的接口。</p>
-<p>我们可以把”接口”理解为下面三种东西：</p>
-<ul>
-<li>一组API接口集合</li>
-<li>单个API接口或函数</li>
-<li>OOP中的接口概念</li>
-</ul>
-<h3 id="把“接口”理解为一组API-接口集合"><a href="#把“接口”理解为一组API-接口集合" class="headerlink" title="把“接口”理解为一组API 接口集合"></a>把“接口”理解为一组API 接口集合</h3><p>我们把接口隔离原则中的接口，理解为一组接口集合，它可以是某个微服务的接口，也可以是某个类库的接口等。在设计微服务或者类库接口的时候，如果部分接口只被部分调用者使用，那我们就需要将这部分接口隔离出来，单独给对应的调用者使用，而不是强迫其他调用者也依赖这部分不会被用到的接口。</p>
-<h3 id="把“接口”理解为单个API接口或者函数"><a href="#把“接口”理解为单个API接口或者函数" class="headerlink" title="把“接口”理解为单个API接口或者函数"></a>把“接口”理解为单个API接口或者函数</h3><p>接口隔离原则跟单一职责原则有点类似，不过稍微有点区别。单一职责原则针对的是模块，类，接口的设计。而接口隔离原则相对于单一职责原则，一方面它更侧重于接口的设计，另一方面它的思考的角度不同。它提供了一种判断接口是否职责单一的标准：通过调用者如何使用接来间接地判定。如果调用者只使用部分接口或接口的部分功能，那接口的设计就不够职责单一。</p>
-<h3 id="把“接口”理解为OOP中的接口概念"><a href="#把“接口”理解为OOP中的接口概念" class="headerlink" title="把“接口”理解为OOP中的接口概念"></a>把“接口”理解为OOP中的接口概念</h3><p>TODO</p>
-<h2 id="依赖反转原则"><a href="#依赖反转原则" class="headerlink" title="依赖反转原则"></a>依赖反转原则</h2><h3 id="控制反转-IOC"><a href="#控制反转-IOC" class="headerlink" title="控制反转(IOC)"></a>控制反转(IOC)</h3><p>框架提供了一个可扩展的代码骨架，用来组装对象，管理整个执行流程。程序员进行开发的时候，只需要往预留的扩展点上，添加跟自己业务相关的代码，就可以利用框架来驱动整个程序流程的执行。</p>
-<p>这里的“控制”指的是对程序流程的控制，而“反转”指的是在没有使用框架之前，程序员自己控制整个程序的执行。在使用框架之后，整个程序的执行流程可以通过框架来控制。流程的控制权从程序员“反转”到了框架。</p>
-<h3 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入(DI)"></a>依赖注入(DI)</h3><p>依赖注入跟控制反转相反，它是一种具体的编程技巧。依赖注入的英文翻译是<code>Dependency Injecrtion</code>,缩写为DI.</p>
-<p>依赖注入：不通过new()的方式在类内部创建依赖对象，而是将依赖的类对象在外部创建好之后，通过构造函数，函数参数等方式传递(注入)给类使用。</p>
-<p>通过依赖注入的方式将以来的类对象传递进来，可以提高代码的扩展性，可以灵活地替换依赖的类。</p>
-<h3 id="依赖注入框架-DI-Framework"><a href="#依赖注入框架-DI-Framework" class="headerlink" title="依赖注入框架(DI Framework)"></a>依赖注入框架(DI Framework)</h3><p>在实际的软件开发中，一些项目可能会涉及几十，上百，甚至几百个类，类对象的创建和依赖注入会变得非常复杂。如果这部分工作都是靠程序员自己写代码来完成，容易出错且开发成本也比较高。而对象创建来依赖的注入的工作，本身跟具体的业务无关，我们完全可以抽象成框架来自动完成。这个框架就是“依赖注入框架”。</p>
-<h3 id="依赖反转原则-DIP"><a href="#依赖反转原则-DIP" class="headerlink" title="依赖反转原则(DIP)"></a>依赖反转原则(DIP)</h3><p>依赖反转原则的英文是<code>Dependency Inversion Principle</code>，缩写为DIP。中文翻译有时候也叫依赖倒置原则。英文描述为:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">High-level modules shouldn&#39;t depend on low-level modules.Both modules should depend on abstractions. In addition,abstractions shouldn&#39;t depend on details. Details depend on abstractions.</span><br></pre></td></tr></table></figure>
-
-<p>翻译为中文，大概意思是：高层模块(high-level modules)不要依赖底层模块(low-level)。高层模块和底层模块应该通过抽象(abstraction)来相互依赖，除此之外，抽象(abstractions)不要依赖具体实现细节(details)，具体实现细节(details)依赖抽象(abstractions)。</p>
-<h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><p>KISS原则的英文描述有好几个版本，比如下面几个</p>
-<ul>
-<li>Keep It Simple and Stupid</li>
-<li>Keep It Short and Simple</li>
-<li>Keep It Simple and Straightforward</li>
-</ul>
-<p>不过要表达的原则其实差不多，翻译成中文就是：尽量保持简单。</p>
-<h3 id="如何写出满足KISS原则的代码？"><a href="#如何写出满足KISS原则的代码？" class="headerlink" title="如何写出满足KISS原则的代码？"></a>如何写出满足KISS原则的代码？</h3><ul>
-<li>不要使用同时可能不懂的技术实现代码。比如使用复杂的正则表达式，或者一些编程语言中过于高级的语法等。</li>
-<li>不要重复造轮子，要善于使用已经有的工具类库。经验证明，自己去实现这些类库，出bug的概率会更高，维护的成本也比较高。</li>
-<li>不要过度优化。不要过度使用一些奇技淫巧(比如，位运算代替算术，复杂的条件语句代替if-else，使用一些过于底层的函数等)来优化代码，牺牲代码的可读性。</li>
-</ul>
-<h1 id="YAGNI原则"><a href="#YAGNI原则" class="headerlink" title="YAGNI原则"></a>YAGNI原则</h1><p>YANNI原则的英文是<code>You Ain&#39;t Gonna Need It</code>。直译就是:<code>你不会需要它</code>.在软件开发中，它的意思是：<code>不要去设计当前用不到的功能；不要去编写当前用不到的代码。</code>其核心思想是– 不要做过度设计。</p>
-<h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><p>DRY的英文描述为：Don’t Repeat Yourself.</p>
-<ul>
-<li>实现逻辑重复</li>
-<li>功能语义重复</li>
-<li>代码执行重复</li>
-</ul>
-<h3 id="代码复用性-Code-Resuability"><a href="#代码复用性-Code-Resuability" class="headerlink" title="代码复用性(Code Resuability)"></a>代码复用性(Code Resuability)</h3><p>代码的复用性是评判代码质量的一个非常重要的标准。代码复用表示一种行文：在开放时，尽量复用已经存在的代码。代码的可复用性表示一段代码可被复用的特性或能力。</p>
-<h3 id="如何提高代码复用性？"><a href="#如何提高代码复用性？" class="headerlink" title="如何提高代码复用性？"></a>如何提高代码复用性？</h3><ul>
-<li>减少代码耦合</li>
-<li>满足单一职责原则</li>
-<li>模块化</li>
-<li>业务与非业务逻辑分离</li>
-<li>通用代码下沉</li>
-<li>继承，多态，抽象，封装</li>
-<li>应用模板等设计模式</li>
-</ul>
-<h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1><p>迪米特法则的英文是<code>Law of Demeter</code>,缩写是LOD。</p>
-<h3 id="高内聚，松耦合"><a href="#高内聚，松耦合" class="headerlink" title="高内聚，松耦合"></a>高内聚，松耦合</h3><p>“高内聚，松耦合”是一个非常重要的设计思想，能够有效提高代码的可读性和可维护性，缩小功能改动导致的代码改动范围。“高内聚”用来指导类本身的设计，“松耦合”用来指导类与类之间依赖关系的设计。</p>
-<p>所谓高内聚，就是指相近的功能应该放到同一个类中，不相近的功能不要放到同一类中。相近功能往往会被同时修改，放在同一个类中，修改会比较集中。</p>
-<p>所谓松耦合，指的是，在代码中，类与类之间的依赖关系简单清晰。即使两个类有依赖关系，一个类的代码改动也不会或很少导致依赖类的代码改动。</p>
-<h3 id="迪米特法则"><a href="#迪米特法则" class="headerlink" title="迪米特法则"></a>迪米特法则</h3><p>不该有直接依赖关系的类之间，不要有依赖；有依赖关系的类之间，尽量只依赖必要的接口。迪米特法则是希望减少类之间的耦合，让类越独立越好。每个类都应该少了解系统的其他部分，一旦发生变化，需要了解这一变化的类就会比较少。</p>
-<h1 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h1><p>合成复用原则(Composite Resuse Principle, CRP)，又叫组合/聚合原则(Composition/Aggregate Resuse Principle.CARP)。它要求在软件复用时。要尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系来实现。</p>
-<p>如果要使用继承关系，则必须严格遵循里氏替换原则。合成复用原则同里氏替换原则相辅相成，两个都是开闭原则的具体实现规范。</p>
-<h2 id="合成复用原则的重要性"><a href="#合成复用原则的重要性" class="headerlink" title="合成复用原则的重要性"></a>合成复用原则的重要性</h2><p>通常类的复用分为继承复用和合成复用两种。</p>
-<p>继承复用虽然有简单和易实现的优点，但它也存在以下缺点。</p>
-<ul>
-<li>继承复用破坏了类的封装性。因为继承会将父类的实现细节暴露给子类，父类对子类是透明的。所以这种复用又称为“白箱”复用。</li>
-<li>子类与父类的耦合度高。父类的实现的任何改变都会导致子类的实现发生变化，这不利于类的扩展与维护。</li>
-<li>它限制了复用的灵活性，从父类继承而来的实现是静态的，在编译时已经定义，所以在运行时不可能发生变化。</li>
-</ul>
-<p>采用组合或聚合复用时，可以将已有对象纳入新对象中，使之称为新对象的一部分，新对象可以调用已有对象的功能，他有以下优点：</p>
-<ul>
-<li>它维持了类的封装性，因为成分对象的内部细节是新对象看不见的，所以这种复用又称为“黑箱”复用。</li>
-<li>新旧类之间的耦合度低。这种复用所需的依赖较少，新对象存取对象的唯一方法是通过成分对象的接口。</li>
-<li>复用的灵活性高。这种复用可以在运行时动态进行，新对象可以动态地引用与成分对象类型相同的对象。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>编程思想</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++11标准</title>
     <url>/cbc30407.html</url>
     <content><![CDATA[<h1 id="C-11是什么，C-11标准的由来"><a href="#C-11是什么，C-11标准的由来" class="headerlink" title="C++11是什么，C++11标准的由来"></a>C++11是什么，C++11标准的由来</h1><h1 id="C-11-auto类型推导"><a href="#C-11-auto类型推导" class="headerlink" title="C++11 auto类型推导"></a>C++11 auto类型推导</h1><h2 id="功能说明"><a href="#功能说明" class="headerlink" title="功能说明"></a>功能说明</h2><p>C++11 使用auto来做自动类型推导，使用了auto关键字之后，编译器会在编译期间自动推导出变量的类型。</p>
@@ -626,52 +517,6 @@
       </tags>
   </entry>
   <entry>
-    <title>基础篇、到底应该怎么理解&quot;平均负载&quot;</title>
-    <url>/dc0156fc.html</url>
-    <content><![CDATA[<h1 id="什么是平均负载？"><a href="#什么是平均负载？" class="headerlink" title="什么是平均负载？"></a>什么是平均负载？</h1><p>正确定义：<br><code>平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和CPU使用率并没有直接关系。</code></p>
-<p>错误定义：<br><code>单位时间内的CPU使用率</code><br>下面先介绍一下可运行状态进程和不可中断状态进程：<br>1. 可运行状态进程</p>
-<p><code>可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。</code></p>
-<p>比如使用ps命令看到的，处于R状态（Running 或 Runnable）的进程。</p>
-<p>2. 不可中断状态进程</p>
-<p><code>不可中断状态的进程是正处于内核态关键流程中的进程，并且这些流程是不可打断的。不可中断状态实际上是系统对进程和硬件设备的一种保护机制。</code></p>
-<p>比如最常见的是等待硬件设备的I/O响应，也就是我们在ps命令中看到的D状态（Uninterruptible Sleep，也称为Disk Sleep）的进程。</p>
-<p>3.过载经验值</p>
-<p><code>平均负载高于CPU核数70%的时候</code></p>
-<h1 id="相关指令"><a href="#相关指令" class="headerlink" title="相关指令"></a>相关指令</h1><h2 id="CPU核数"><a href="#CPU核数" class="headerlink" title="CPU核数"></a>CPU核数</h2><p>1.  <strong>lscpu</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lscpu</span><br><span class="line">Architecture:        x86_64</span><br><span class="line">CPU op-mode(s):      32-bit, 64-bit</span><br><span class="line">Byte Order:          Little Endian</span><br><span class="line">CPU(s):              8</span><br><span class="line">On-line CPU(s) list: 0-7</span><br><span class="line">Thread(s) per core:  1</span><br><span class="line">Core(s) per socket:  8</span><br><span class="line">Socket(s):           1</span><br><span class="line">NUMA node(s):        1</span><br><span class="line">Vendor ID:           GenuineIntel</span><br><span class="line">CPU family:          6</span><br><span class="line">Model:               142</span><br><span class="line">Model name:          Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz</span><br><span class="line">Stepping:            12</span><br><span class="line">CPU MHz:             1991.999</span><br><span class="line">BogoMIPS:            3983.99</span><br><span class="line">Virtualization:      VT-x</span><br><span class="line">Hypervisor vendor:   VMware</span><br><span class="line">Virtualization type: full</span><br><span class="line">L1d cache:           32K</span><br><span class="line">L1i cache:           32K</span><br><span class="line">L2 cache:            256K</span><br><span class="line">L3 cache:            8192K</span><br><span class="line">NUMA node0 CPU(s):   0-7</span><br></pre></td></tr></table></figure>
-<p>2. <strong>grep ‘model name’ /proc/cpuinfo | wc -l</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ grep &#39;model name&#39; &#x2F;proc&#x2F;cpuinfo | wc -l</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
-<h2 id="显示负载"><a href="#显示负载" class="headerlink" title="显示负载"></a>显示负载</h2><p>1.  <strong>uptime</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ uptime</span><br><span class="line"> 08:45:52 up 1 day, 10:29,  2 users,  load average: 0.44, 0.10, 0.03</span><br></pre></td></tr></table></figure>
-<p><code>load average：显示的顺序是最近1分钟，5分钟，15分钟的平均负载情况。通过观察趋势，判定平均负载是否异常。</code></p>
-<p>1.  <strong>top</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ top</span><br><span class="line">top - 08:46:50 up 1 day, 10:30,  2 users,  load average: 0.21, 0.09, 0.03</span><br><span class="line">Tasks: 396 total,   2 running, 298 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  0.9 us,  0.4 sy,  0.0 ni, 98.6 id,  0.0 wa,  0.0 hi,  0.1 si,  0.0 st</span><br><span class="line">KiB Mem :  2006004 total,   149252 free,  1172820 used,   683932 buff&#x2F;cache</span><br><span class="line">KiB Swap:  1942896 total,  1430896 free,   512000 used.   637672 avail Mem</span><br></pre></td></tr></table></figure>
-<p>3. <strong>watch -d uptime</strong><br><code>-d 会高亮显示变化的区域</code></p>
-<p>4. <strong>stress 压测命令</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--cpu n  cpu压测选项</span><br><span class="line">--i  n     io压力测试选项， </span><br><span class="line">-c  n  进程数压测选项</span><br><span class="line">-timeout  执行时间</span><br></pre></td></tr></table></figure>
-
-<p>5. <strong>mpstat</strong><br><code>多核CPU 性能分析工具 ，mpstat  -P ALL :监视所有CPU</code></p>
-<p>6. <strong>pidstat</strong><br><code>进程性能分析工具， -u 显示cpu利用率</code></p>
-<h1 id="平均负载和cpu使用的区别"><a href="#平均负载和cpu使用的区别" class="headerlink" title="平均负载和cpu使用的区别"></a>平均负载和cpu使用的区别</h1><p><strong>CPU使用率</strong><br><code>CPU使用率是指cpu繁忙情况的统计</code></p>
-<p>情况1：<br><code>CPU密集型进程， CPU使用率和平均负载基本一致</code></p>
-<p>情况2：<br><code>IO密集型进程， 平均负载升高，CPU使用率不一定升高</code></p>
-<p>情况3：<br><code>大量等待CPU的进程调度，平均负载升高，CPU使用率也升高</code></p>
-<h1 id="平均负载升高时，如何调优"><a href="#平均负载升高时，如何调优" class="headerlink" title="平均负载升高时，如何调优"></a>平均负载升高时，如何调优</h1><h2 id="CPU密集型进程case"><a href="#CPU密集型进程case" class="headerlink" title="CPU密集型进程case"></a>CPU密集型进程case</h2><ul>
-<li>mpstat -p ALL 5: -P ALL 表示监控所有CPU， 5表示每5秒刷新一次数据，观察是否有某个CPU很高， 但iowait很低。</li>
-<li>pidstat -u 5 1: 每5秒输出一组数据，观察哪个进程%cpu很高，但是%wait很低， 极有可能就是这个进程导致cpu飙升。<h2 id="IO密集型进程case"><a href="#IO密集型进程case" class="headerlink" title="IO密集型进程case"></a>IO密集型进程case</h2></li>
-<li>mpstat -P ALL 5 : 观察是否某个cpu的%iowait很高，同时%usr也较高</li>
-<li>pidstat -u 5 1  : 观察哪个进程%wait较高，同时%cpu也较高<h2 id="大量进程case"><a href="#大量进程case" class="headerlink" title="大量进程case"></a>大量进程case</h2></li>
-<li>pidstat -u 5 1  : 观察那些%wait 较高的进程是否有很多。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>YAML入门教程</title>
     <url>/ac22eddc.html</url>
     <content><![CDATA[<p>YAML是”YAML Ain’t Markup Language“(YAML不是一种标记语言)的递归缩写。YAML的语法和其他高级语言类似，并且可以简单表达清单，散列表，标量等数据形态。它使用空白符合缩进和大量依赖外观的特点，特别适合用来表达或编辑数据结构，各种配置文件，文件大纲。YAML的配置文件后缀为<code>.yml</code>.</p>
@@ -754,6 +599,78 @@
       </categories>
       <tags>
         <tag>YAML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基础篇、到底应该怎么理解&quot;平均负载&quot;</title>
+    <url>/dc0156fc.html</url>
+    <content><![CDATA[<h1 id="什么是平均负载？"><a href="#什么是平均负载？" class="headerlink" title="什么是平均负载？"></a>什么是平均负载？</h1><p>正确定义：<br><code>平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数，它和CPU使用率并没有直接关系。</code></p>
+<p>错误定义：<br><code>单位时间内的CPU使用率</code><br>下面先介绍一下可运行状态进程和不可中断状态进程：<br>1. 可运行状态进程</p>
+<p><code>可运行状态状态的进程，是指正在使用CPU或者正在等待CPU的进程。</code></p>
+<p>比如使用ps命令看到的，处于R状态（Running 或 Runnable）的进程。</p>
+<p>2. 不可中断状态进程</p>
+<p><code>不可中断状态的进程是正处于内核态关键流程中的进程，并且这些流程是不可打断的。不可中断状态实际上是系统对进程和硬件设备的一种保护机制。</code></p>
+<p>比如最常见的是等待硬件设备的I/O响应，也就是我们在ps命令中看到的D状态（Uninterruptible Sleep，也称为Disk Sleep）的进程。</p>
+<p>3.过载经验值</p>
+<p><code>平均负载高于CPU核数70%的时候</code></p>
+<h1 id="相关指令"><a href="#相关指令" class="headerlink" title="相关指令"></a>相关指令</h1><h2 id="CPU核数"><a href="#CPU核数" class="headerlink" title="CPU核数"></a>CPU核数</h2><p>1.  <strong>lscpu</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ lscpu</span><br><span class="line">Architecture:        x86_64</span><br><span class="line">CPU op-mode(s):      32-bit, 64-bit</span><br><span class="line">Byte Order:          Little Endian</span><br><span class="line">CPU(s):              8</span><br><span class="line">On-line CPU(s) list: 0-7</span><br><span class="line">Thread(s) per core:  1</span><br><span class="line">Core(s) per socket:  8</span><br><span class="line">Socket(s):           1</span><br><span class="line">NUMA node(s):        1</span><br><span class="line">Vendor ID:           GenuineIntel</span><br><span class="line">CPU family:          6</span><br><span class="line">Model:               142</span><br><span class="line">Model name:          Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz</span><br><span class="line">Stepping:            12</span><br><span class="line">CPU MHz:             1991.999</span><br><span class="line">BogoMIPS:            3983.99</span><br><span class="line">Virtualization:      VT-x</span><br><span class="line">Hypervisor vendor:   VMware</span><br><span class="line">Virtualization type: full</span><br><span class="line">L1d cache:           32K</span><br><span class="line">L1i cache:           32K</span><br><span class="line">L2 cache:            256K</span><br><span class="line">L3 cache:            8192K</span><br><span class="line">NUMA node0 CPU(s):   0-7</span><br></pre></td></tr></table></figure>
+<p>2. <strong>grep ‘model name’ /proc/cpuinfo | wc -l</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ grep &#39;model name&#39; &#x2F;proc&#x2F;cpuinfo | wc -l</span><br><span class="line">8</span><br></pre></td></tr></table></figure>
+<h2 id="显示负载"><a href="#显示负载" class="headerlink" title="显示负载"></a>显示负载</h2><p>1.  <strong>uptime</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ uptime</span><br><span class="line"> 08:45:52 up 1 day, 10:29,  2 users,  load average: 0.44, 0.10, 0.03</span><br></pre></td></tr></table></figure>
+<p><code>load average：显示的顺序是最近1分钟，5分钟，15分钟的平均负载情况。通过观察趋势，判定平均负载是否异常。</code></p>
+<p>1.  <strong>top</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ top</span><br><span class="line">top - 08:46:50 up 1 day, 10:30,  2 users,  load average: 0.21, 0.09, 0.03</span><br><span class="line">Tasks: 396 total,   2 running, 298 sleeping,   0 stopped,   0 zombie</span><br><span class="line">%Cpu(s):  0.9 us,  0.4 sy,  0.0 ni, 98.6 id,  0.0 wa,  0.0 hi,  0.1 si,  0.0 st</span><br><span class="line">KiB Mem :  2006004 total,   149252 free,  1172820 used,   683932 buff&#x2F;cache</span><br><span class="line">KiB Swap:  1942896 total,  1430896 free,   512000 used.   637672 avail Mem</span><br></pre></td></tr></table></figure>
+<p>3. <strong>watch -d uptime</strong><br><code>-d 会高亮显示变化的区域</code></p>
+<p>4. <strong>stress 压测命令</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--cpu n  cpu压测选项</span><br><span class="line">--i  n     io压力测试选项， </span><br><span class="line">-c  n  进程数压测选项</span><br><span class="line">-timeout  执行时间</span><br></pre></td></tr></table></figure>
+
+<p>5. <strong>mpstat</strong><br><code>多核CPU 性能分析工具 ，mpstat  -P ALL :监视所有CPU</code></p>
+<p>6. <strong>pidstat</strong><br><code>进程性能分析工具， -u 显示cpu利用率</code></p>
+<h1 id="平均负载和cpu使用的区别"><a href="#平均负载和cpu使用的区别" class="headerlink" title="平均负载和cpu使用的区别"></a>平均负载和cpu使用的区别</h1><p><strong>CPU使用率</strong><br><code>CPU使用率是指cpu繁忙情况的统计</code></p>
+<p>情况1：<br><code>CPU密集型进程， CPU使用率和平均负载基本一致</code></p>
+<p>情况2：<br><code>IO密集型进程， 平均负载升高，CPU使用率不一定升高</code></p>
+<p>情况3：<br><code>大量等待CPU的进程调度，平均负载升高，CPU使用率也升高</code></p>
+<h1 id="平均负载升高时，如何调优"><a href="#平均负载升高时，如何调优" class="headerlink" title="平均负载升高时，如何调优"></a>平均负载升高时，如何调优</h1><h2 id="CPU密集型进程case"><a href="#CPU密集型进程case" class="headerlink" title="CPU密集型进程case"></a>CPU密集型进程case</h2><ul>
+<li>mpstat -p ALL 5: -P ALL 表示监控所有CPU， 5表示每5秒刷新一次数据，观察是否有某个CPU很高， 但iowait很低。</li>
+<li>pidstat -u 5 1: 每5秒输出一组数据，观察哪个进程%cpu很高，但是%wait很低， 极有可能就是这个进程导致cpu飙升。<h2 id="IO密集型进程case"><a href="#IO密集型进程case" class="headerlink" title="IO密集型进程case"></a>IO密集型进程case</h2></li>
+<li>mpstat -P ALL 5 : 观察是否某个cpu的%iowait很高，同时%usr也较高</li>
+<li>pidstat -u 5 1  : 观察哪个进程%wait较高，同时%cpu也较高<h2 id="大量进程case"><a href="#大量进程case" class="headerlink" title="大量进程case"></a>大量进程case</h2></li>
+<li>pidstat -u 5 1  : 观察那些%wait 较高的进程是否有很多。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>设计模式之概述</title>
+    <url>/54d03dc6.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>设计模式之创建型模式</title>
+    <url>/3dfd8b5b.html</url>
+    <content><![CDATA[<p><code>创建型模式</code>的主要关注点是“怎样创建对象？”，它的主要特点是<code>将对象的创建于使用分离</code>。这样可以降低系统的耦合度，使用者不需要关注对象的创建细节，对象的创建由相关的工厂来完成。就像我们去商场购买商品时，不需要知道商品是怎样生产出来一样，因为它们由专门的厂商生成。</p>
+<p>创建型模式分为以下几种。</p>
+<ul>
+<li>单例(Singleton)模式：某个类只能生成一个实例，该类提供了一个全局访问点供外部获取该实例，其扩展是有限多例模式。</li>
+<li>原型(Prototype)模式：将一个对象作为原型，通过其进行复制而克隆出多个和原型类似的新实例。</li>
+<li>工厂方法(FactoryMethod)模式：定义一个用于创建产品的接口，由子类决定生产什么产品。</li>
+<li>抽象工厂(AbstractFactory)模式：提供一个创建产品族的接口，其每个子类可以生产一系列相关的产品。</li>
+<li>建造者(Builder)模式：将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。</li>
+</ul>
+<p>以上五种创建型模式，除了工厂方法模式属于类创建型模式，其他的全部属于对象创建型模式。</p>
+<h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>编程思想</tag>
       </tags>
   </entry>
   <entry>
@@ -893,24 +810,107 @@ F[横向流程图]</code></pre><p>​```</p>
       </tags>
   </entry>
   <entry>
-    <title>设计模式之概述</title>
-    <url>/54d03dc6.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>设计模式之创建型模式</title>
-    <url>/3dfd8b5b.html</url>
-    <content><![CDATA[<p><code>创建型模式</code>的主要关注点是“怎样创建对象？”，它的主要特点是<code>将对象的创建于使用分离</code>。这样可以降低系统的耦合度，使用者不需要关注对象的创建细节，对象的创建由相关的工厂来完成。就像我们去商场购买商品时，不需要知道商品是怎样生产出来一样，因为它们由专门的厂商生成。</p>
-<p>创建型模式分为以下几种。</p>
+    <title>设计模式之设计原则</title>
+    <url>/4a7ab732.html</url>
+    <content><![CDATA[<h1 id="SOLID-原则"><a href="#SOLID-原则" class="headerlink" title="SOLID 原则"></a>SOLID 原则</h1><p>SOLID原则并非单纯的一个原则，而是由五个设计原则组成，它们分别是<code>单一职责原则</code>,<code>开闭原则</code>，<code>里氏替换原则</code>，<code>接口隔离原则</code>和<code>依赖原则</code>, 依次对应SOLID中的S、O、L、I、D这五个字母。</p>
+<h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><p>单一职责原则的英文是<code>Single Responsibility Principle</code>，缩写为SRP. 英文描述为<code>A Class or module should have a single responsibility</code>.翻译成中文是<code>一个类或模块只负责完成一个职责（或者功能）</code>。</p>
+<p>在实际编程中，可以参考如下几条判断原则来评判代码是否符合单一职责原则。</p>
 <ul>
-<li>单例(Singleton)模式：某个类只能生成一个实例，该类提供了一个全局访问点供外部获取该实例，其扩展是有限多例模式。</li>
-<li>原型(Prototype)模式：将一个对象作为原型，通过其进行复制而克隆出多个和原型类似的新实例。</li>
-<li>工厂方法(FactoryMethod)模式：定义一个用于创建产品的接口，由子类决定生产什么产品。</li>
-<li>抽象工厂(AbstractFactory)模式：提供一个创建产品族的接口，其每个子类可以生产一系列相关的产品。</li>
-<li>建造者(Builder)模式：将一个复杂对象分解成多个相对简单的部分，然后根据不同需要分别创建它们，最后构建成该复杂对象。</li>
+<li>类中的代码行数，函数或属性过多，会影响代码的可读性和可维护性，这时我们要考虑对类进行拆分</li>
+<li>类依赖的其他类过多，或者依赖类的其它类过多， 不符合高内聚，低耦合的设计思想，这时我们要考虑对类进行拆分</li>
+<li>私有方法过多，这是我们需要考虑是否将私有方法独立到新的类中，设置为public方法，供更多的类使用，从而提供代码的复用性</li>
+<li>比较难给类起一个合适名字，很难用一个业务名词概括，或者智能用一些笼统的Manager，Context之类的词语来命名，这就说明类的职责定义可能不够清晰</li>
+<li>类中大量的方法都集中操作类中的某几个属性。</li>
 </ul>
-<p>以上五种创建型模式，除了工厂方法模式属于类创建型模式，其他的全部属于对象创建型模式。</p>
-<h1 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h1>]]></content>
+<p>单一职责原则通过避免设计大而全的类，避免将不相关的额功能耦合在起义，来提高类的内聚性。同时，类职责单一，类依赖的和被依赖的其它类也会变少，减少了代码的耦合性。以此来实现代码的高内聚，低耦合。但是，如果拆分得过细，实际上会适得其反，反倒会降低内聚性，也会影响代码得可维护性。</p>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p>开闭原则的英文全称是<code>Open Closed Principle</code>,简写为OCP。它的英文描述为:<code>software entities(modules,classes,functions,etc) should be open for extension,but closed for modification</code>。中文描述是：<code>软件实体(模块，类，方法等)应该对扩展开放，对修改关闭</code>。详细描述为: <code>添加一个新的功能应该是，在已有代码基础上扩展代码(新增模块，类，方法等)，而非修改已有代码(修改模块，类，方法等)</code>。</p>
+<h3 id="如何做到”对扩展开放，对修改关闭“？"><a href="#如何做到”对扩展开放，对修改关闭“？" class="headerlink" title="如何做到”对扩展开放，对修改关闭“？"></a>如何做到”对扩展开放，对修改关闭“？</h3><p>我饿们要时刻具备扩展意识，抽象意识，封装意识。在写代码的时候，要多花点时间思考以下，这段代码未来可能有哪些需求变更，如何设计代码结构，事先留好扩展点，以便在未来需求变更的时候，在不改动代码整体结构，做到最小代码改动的情况下，将新的代码灵活地插入到扩展点上。</p>
+<h2 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h2><p>里氏替换原则的英文全称是<code>Liskov Substitution Principle</code>,缩写为LSP。这个原则最早是在1986年由Barbara Liskov 提出，他是这么描述这条原则的:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">If S is a subtype of T, then objects of type T may be replaced with objects of type S, without breaking the program.</span><br></pre></td></tr></table></figure>
+
+<p>在1996年，Robert Martin 在他的SOLID原则中，重新描述了这个原则，英文原话是这样的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Functions that use pointers of references to base class must be able to use objects of derived classes without knowing it.</span><br></pre></td></tr></table></figure>
+
+<p>综合两者的描述，我们可以描述为：<code>子类对象(object of subtype /derived class)能够替换程序(program)中父类对象(object of base/parent class)出现的任何地方，并且保证原来程序的逻辑行为(behavior)不变及正确性不被破坏</code>。</p>
+<h3 id="哪些代码明显违背了LSP"><a href="#哪些代码明显违背了LSP" class="headerlink" title="哪些代码明显违背了LSP?"></a>哪些代码明显违背了LSP?</h3><ul>
+<li>子类违背父类声明要实现的功能。</li>
+<li>子类违背父类对输入，输出，异常的约定。</li>
+<li>子类违背父类注释中所罗列的任何特殊说明。</li>
+</ul>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>接口隔离原则的英文是<code>Interface Segregation Principle</code>,缩写为<code>ISP</code>.Robert Martin在SOLID原则的定义如下。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Clients should not be forced to depend upon interface that they do not use.</span><br></pre></td></tr></table></figure>
+
+<p>直译成中文就是：<code>客户端不应该被迫依赖它不需要的接口</code>。其中的“客户端”，可以理解为接口的调用者或者使用者。</p>
+<p>实际上，<code>接口</code>这个名词可以用在很多场合。在软件开发中，我们既可以把它看作一组抽象的约定，也可以具体指系统与系统之间的API接口，还可以指面向对象编程语言中的接口。</p>
+<p>我们可以把”接口”理解为下面三种东西：</p>
+<ul>
+<li>一组API接口集合</li>
+<li>单个API接口或函数</li>
+<li>OOP中的接口概念</li>
+</ul>
+<h3 id="把“接口”理解为一组API-接口集合"><a href="#把“接口”理解为一组API-接口集合" class="headerlink" title="把“接口”理解为一组API 接口集合"></a>把“接口”理解为一组API 接口集合</h3><p>我们把接口隔离原则中的接口，理解为一组接口集合，它可以是某个微服务的接口，也可以是某个类库的接口等。在设计微服务或者类库接口的时候，如果部分接口只被部分调用者使用，那我们就需要将这部分接口隔离出来，单独给对应的调用者使用，而不是强迫其他调用者也依赖这部分不会被用到的接口。</p>
+<h3 id="把“接口”理解为单个API接口或者函数"><a href="#把“接口”理解为单个API接口或者函数" class="headerlink" title="把“接口”理解为单个API接口或者函数"></a>把“接口”理解为单个API接口或者函数</h3><p>接口隔离原则跟单一职责原则有点类似，不过稍微有点区别。单一职责原则针对的是模块，类，接口的设计。而接口隔离原则相对于单一职责原则，一方面它更侧重于接口的设计，另一方面它的思考的角度不同。它提供了一种判断接口是否职责单一的标准：通过调用者如何使用接来间接地判定。如果调用者只使用部分接口或接口的部分功能，那接口的设计就不够职责单一。</p>
+<h3 id="把“接口”理解为OOP中的接口概念"><a href="#把“接口”理解为OOP中的接口概念" class="headerlink" title="把“接口”理解为OOP中的接口概念"></a>把“接口”理解为OOP中的接口概念</h3><p>TODO</p>
+<h2 id="依赖反转原则"><a href="#依赖反转原则" class="headerlink" title="依赖反转原则"></a>依赖反转原则</h2><h3 id="控制反转-IOC"><a href="#控制反转-IOC" class="headerlink" title="控制反转(IOC)"></a>控制反转(IOC)</h3><p>框架提供了一个可扩展的代码骨架，用来组装对象，管理整个执行流程。程序员进行开发的时候，只需要往预留的扩展点上，添加跟自己业务相关的代码，就可以利用框架来驱动整个程序流程的执行。</p>
+<p>这里的“控制”指的是对程序流程的控制，而“反转”指的是在没有使用框架之前，程序员自己控制整个程序的执行。在使用框架之后，整个程序的执行流程可以通过框架来控制。流程的控制权从程序员“反转”到了框架。</p>
+<h3 id="依赖注入-DI"><a href="#依赖注入-DI" class="headerlink" title="依赖注入(DI)"></a>依赖注入(DI)</h3><p>依赖注入跟控制反转相反，它是一种具体的编程技巧。依赖注入的英文翻译是<code>Dependency Injecrtion</code>,缩写为DI.</p>
+<p>依赖注入：不通过new()的方式在类内部创建依赖对象，而是将依赖的类对象在外部创建好之后，通过构造函数，函数参数等方式传递(注入)给类使用。</p>
+<p>通过依赖注入的方式将以来的类对象传递进来，可以提高代码的扩展性，可以灵活地替换依赖的类。</p>
+<h3 id="依赖注入框架-DI-Framework"><a href="#依赖注入框架-DI-Framework" class="headerlink" title="依赖注入框架(DI Framework)"></a>依赖注入框架(DI Framework)</h3><p>在实际的软件开发中，一些项目可能会涉及几十，上百，甚至几百个类，类对象的创建和依赖注入会变得非常复杂。如果这部分工作都是靠程序员自己写代码来完成，容易出错且开发成本也比较高。而对象创建来依赖的注入的工作，本身跟具体的业务无关，我们完全可以抽象成框架来自动完成。这个框架就是“依赖注入框架”。</p>
+<h3 id="依赖反转原则-DIP"><a href="#依赖反转原则-DIP" class="headerlink" title="依赖反转原则(DIP)"></a>依赖反转原则(DIP)</h3><p>依赖反转原则的英文是<code>Dependency Inversion Principle</code>，缩写为DIP。中文翻译有时候也叫依赖倒置原则。英文描述为:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">High-level modules shouldn&#39;t depend on low-level modules.Both modules should depend on abstractions. In addition,abstractions shouldn&#39;t depend on details. Details depend on abstractions.</span><br></pre></td></tr></table></figure>
+
+<p>翻译为中文，大概意思是：高层模块(high-level modules)不要依赖底层模块(low-level)。高层模块和底层模块应该通过抽象(abstraction)来相互依赖，除此之外，抽象(abstractions)不要依赖具体实现细节(details)，具体实现细节(details)依赖抽象(abstractions)。</p>
+<h1 id="KISS-原则"><a href="#KISS-原则" class="headerlink" title="KISS 原则"></a>KISS 原则</h1><p>KISS原则的英文描述有好几个版本，比如下面几个</p>
+<ul>
+<li>Keep It Simple and Stupid</li>
+<li>Keep It Short and Simple</li>
+<li>Keep It Simple and Straightforward</li>
+</ul>
+<p>不过要表达的原则其实差不多，翻译成中文就是：尽量保持简单。</p>
+<h3 id="如何写出满足KISS原则的代码？"><a href="#如何写出满足KISS原则的代码？" class="headerlink" title="如何写出满足KISS原则的代码？"></a>如何写出满足KISS原则的代码？</h3><ul>
+<li>不要使用同时可能不懂的技术实现代码。比如使用复杂的正则表达式，或者一些编程语言中过于高级的语法等。</li>
+<li>不要重复造轮子，要善于使用已经有的工具类库。经验证明，自己去实现这些类库，出bug的概率会更高，维护的成本也比较高。</li>
+<li>不要过度优化。不要过度使用一些奇技淫巧(比如，位运算代替算术，复杂的条件语句代替if-else，使用一些过于底层的函数等)来优化代码，牺牲代码的可读性。</li>
+</ul>
+<h1 id="YAGNI原则"><a href="#YAGNI原则" class="headerlink" title="YAGNI原则"></a>YAGNI原则</h1><p>YANNI原则的英文是<code>You Ain&#39;t Gonna Need It</code>。直译就是:<code>你不会需要它</code>.在软件开发中，它的意思是：<code>不要去设计当前用不到的功能；不要去编写当前用不到的代码。</code>其核心思想是– 不要做过度设计。</p>
+<h1 id="DRY原则"><a href="#DRY原则" class="headerlink" title="DRY原则"></a>DRY原则</h1><p>DRY的英文描述为：Don’t Repeat Yourself.</p>
+<ul>
+<li>实现逻辑重复</li>
+<li>功能语义重复</li>
+<li>代码执行重复</li>
+</ul>
+<h3 id="代码复用性-Code-Resuability"><a href="#代码复用性-Code-Resuability" class="headerlink" title="代码复用性(Code Resuability)"></a>代码复用性(Code Resuability)</h3><p>代码的复用性是评判代码质量的一个非常重要的标准。代码复用表示一种行文：在开放时，尽量复用已经存在的代码。代码的可复用性表示一段代码可被复用的特性或能力。</p>
+<h3 id="如何提高代码复用性？"><a href="#如何提高代码复用性？" class="headerlink" title="如何提高代码复用性？"></a>如何提高代码复用性？</h3><ul>
+<li>减少代码耦合</li>
+<li>满足单一职责原则</li>
+<li>模块化</li>
+<li>业务与非业务逻辑分离</li>
+<li>通用代码下沉</li>
+<li>继承，多态，抽象，封装</li>
+<li>应用模板等设计模式</li>
+</ul>
+<h1 id="LOD原则"><a href="#LOD原则" class="headerlink" title="LOD原则"></a>LOD原则</h1><p>迪米特法则的英文是<code>Law of Demeter</code>,缩写是LOD。</p>
+<h3 id="高内聚，松耦合"><a href="#高内聚，松耦合" class="headerlink" title="高内聚，松耦合"></a>高内聚，松耦合</h3><p>“高内聚，松耦合”是一个非常重要的设计思想，能够有效提高代码的可读性和可维护性，缩小功能改动导致的代码改动范围。“高内聚”用来指导类本身的设计，“松耦合”用来指导类与类之间依赖关系的设计。</p>
+<p>所谓高内聚，就是指相近的功能应该放到同一个类中，不相近的功能不要放到同一类中。相近功能往往会被同时修改，放在同一个类中，修改会比较集中。</p>
+<p>所谓松耦合，指的是，在代码中，类与类之间的依赖关系简单清晰。即使两个类有依赖关系，一个类的代码改动也不会或很少导致依赖类的代码改动。</p>
+<h3 id="迪米特法则"><a href="#迪米特法则" class="headerlink" title="迪米特法则"></a>迪米特法则</h3><p>不该有直接依赖关系的类之间，不要有依赖；有依赖关系的类之间，尽量只依赖必要的接口。迪米特法则是希望减少类之间的耦合，让类越独立越好。每个类都应该少了解系统的其他部分，一旦发生变化，需要了解这一变化的类就会比较少。</p>
+<h1 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h1><p>合成复用原则(Composite Resuse Principle, CRP)，又叫组合/聚合原则(Composition/Aggregate Resuse Principle.CARP)。它要求在软件复用时。要尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系来实现。</p>
+<p>如果要使用继承关系，则必须严格遵循里氏替换原则。合成复用原则同里氏替换原则相辅相成，两个都是开闭原则的具体实现规范。</p>
+<h2 id="合成复用原则的重要性"><a href="#合成复用原则的重要性" class="headerlink" title="合成复用原则的重要性"></a>合成复用原则的重要性</h2><p>通常类的复用分为继承复用和合成复用两种。</p>
+<p>继承复用虽然有简单和易实现的优点，但它也存在以下缺点。</p>
+<ul>
+<li>继承复用破坏了类的封装性。因为继承会将父类的实现细节暴露给子类，父类对子类是透明的。所以这种复用又称为“白箱”复用。</li>
+<li>子类与父类的耦合度高。父类的实现的任何改变都会导致子类的实现发生变化，这不利于类的扩展与维护。</li>
+<li>它限制了复用的灵活性，从父类继承而来的实现是静态的，在编译时已经定义，所以在运行时不可能发生变化。</li>
+</ul>
+<p>采用组合或聚合复用时，可以将已有对象纳入新对象中，使之称为新对象的一部分，新对象可以调用已有对象的功能，他有以下优点：</p>
+<ul>
+<li>它维持了类的封装性，因为成分对象的内部细节是新对象看不见的，所以这种复用又称为“黑箱”复用。</li>
+<li>新旧类之间的耦合度低。这种复用所需的依赖较少，新对象存取对象的唯一方法是通过成分对象的接口。</li>
+<li>复用的灵活性高。这种复用可以在运行时动态进行，新对象可以动态地引用与成分对象类型相同的对象。</li>
+</ul>
+]]></content>
       <categories>
         <category>设计模式</category>
       </categories>
